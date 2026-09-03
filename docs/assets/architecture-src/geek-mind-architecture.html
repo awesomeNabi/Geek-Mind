@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1800, initial-scale=1">
+  <title>Geek Mind Architecture</title>
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #536274;
+      --line: #d8e1ec;
+      --panel: #ffffff;
+      --shadow: 0 7px 24px rgba(15, 23, 42, .07);
+      --font: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 1800px;
+      height: 1200px;
+      margin: 0;
+      overflow: hidden;
+      font-family: var(--font);
+      color: var(--ink);
+      background: #eef3f8;
+    }
+
+    .canvas {
+      width: 1800px;
+      height: 1200px;
+      padding: 32px 38px 24px;
+      background:
+        radial-gradient(circle at 50% -15%, rgba(99, 102, 241, .09), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 62%, #f1f5f9 100%);
+    }
+
+    .header {
+      height: 104px;
+      position: relative;
+      text-align: center;
+      border-bottom: 1px solid #dce5ef;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.06;
+      font-weight: 780;
+      letter-spacing: -.7px;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      color: #475569;
+      font-size: 18px;
+      font-weight: 520;
+      letter-spacing: .15px;
+    }
+
+    .header .flow-caption {
+      position: absolute;
+      left: 0;
+      bottom: 11px;
+      font: 700 11px/1 var(--font);
+      letter-spacing: 1.45px;
+      color: #64748b;
+    }
+
+    .header .flow-sequence {
+      position: absolute;
+      right: 0;
+      bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #64748b;
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 1.1px;
+    }
+
+    .header .flow-sequence i {
+      width: 16px;
+      height: 1px;
+      background: #94a3b8;
+      position: relative;
+    }
+
+    .header .flow-sequence i::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -3px;
+      border-left: 5px solid #94a3b8;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+    }
+
+    .architecture {
+      height: 756px;
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1362px 340px;
+      gap: 22px;
+    }
+
+    .stack {
+      height: 756px;
+      display: grid;
+      grid-template-rows: repeat(7, 96px);
+      gap: 14px;
+      position: relative;
+    }
+
+    .layer {
+      --accent: #64748b;
+      --soft: #f8fafc;
+      --stroke: #cbd5e1;
+      position: relative;
+      display: grid;
+      grid-template-columns: 218px 1fr;
+      align-items: stretch;
+      border: 1.5px solid var(--stroke);
+      border-radius: 15px;
+      background: linear-gradient(90deg, var(--soft), #ffffff 72%);
+      box-shadow: 0 3px 12px rgba(15, 23, 42, .035);
+    }
+
+    .layer.l7 { --accent:#7c3aed; --soft:#f6f1ff; --stroke:#a78bfa; }
+    .layer.l6 { --accent:#db2777; --soft:#fff1f7; --stroke:#f472b6; }
+    .layer.l5 { --accent:#d97706; --soft:#fff8e8; --stroke:#f59e0b; }
+    .layer.l4 { --accent:#059669; --soft:#ecfdf5; --stroke:#34d399; }
+    .layer.l3 { --accent:#0284c7; --soft:#eff8ff; --stroke:#38bdf8; }
+    .layer.l2 { --accent:#2563eb; --soft:#eff6ff; --stroke:#60a5fa; }
+    .layer.l1 { --accent:#475569; --soft:#f8fafc; --stroke:#94a3b8; }
+
+    .layer::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      border-radius: 15px 0 0 15px;
+      background: var(--accent);
+    }
+
+    .layer-label {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      align-items: center;
+      padding: 0 17px 0 21px;
+      border-right: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+    }
+
+    .layer-number {
+      width: 37px;
+      height: 37px;
+      display: grid;
+      place-items: center;
+      border: 1.7px solid var(--accent);
+      border-radius: 50%;
+      background: #ffffff;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .layer-name {
+      font-size: 15px;
+      line-height: 1.18;
+      font-weight: 780;
+      letter-spacing: .2px;
+    }
+
+    .layer-name small {
+      display: block;
+      margin-top: 5px;
+      color: #64748b;
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: 1px;
+    }
+
+    .modules {
+      min-width: 0;
+      padding: 14px 17px 14px 18px;
+      display: grid;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-interface { grid-template-columns: .95fr 1.28fr .77fr; }
+
+    .module {
+      min-width: 0;
+      height: 66px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border: 1.35px solid var(--accent);
+      border-radius: 11px;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .045);
+      text-align: center;
+    }
+
+    .module strong {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 790;
+      letter-spacing: .1px;
+    }
+
+    .module span {
+      margin-top: 5px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #526174;
+      font-size: 10.5px;
+      font-weight: 520;
+    }
+
+    .module.with-badge { padding-left: 52px; }
+
+    .module-badge {
+      position: absolute;
+      left: 12px;
+      top: 16px;
+      width: 33px;
+      height: 33px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .5px;
+    }
+
+    .sequence .module:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 32px;
+      right: -14px;
+      width: 13px;
+      height: 1.5px;
+      background: #7c8ba0;
+    }
+
+    .sequence .module:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      right: -14px;
+      z-index: 2;
+      border-left: 6px solid #7c8ba0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+
+    .down-arrow {
+      position: absolute;
+      z-index: 3;
+      left: 56%;
+      bottom: -16px;
+      width: 12px;
+      height: 17px;
+      pointer-events: none;
+    }
+
+    .down-arrow::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 0;
+      width: 2px;
+      height: 11px;
+      background: #8493a7;
+    }
+
+    .down-arrow::after {
+      content: "";
+      position: absolute;
+      left: 1px;
+      bottom: 0;
+      border-top: 6px solid #8493a7;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+    }
+
+    .feedback-loop {
+      position: absolute;
+      z-index: 5;
+      right: 12px;
+      top: 150px;
+      width: 30px;
+      height: 228px;
+      border-top: 2px solid #0ea5e9;
+      border-right: 2px solid #0ea5e9;
+      border-bottom: 2px solid #0ea5e9;
+      border-radius: 0 10px 10px 0;
+      pointer-events: none;
+    }
+
+    .feedback-loop::before {
+      content: "";
+      position: absolute;
+      left: -1px;
+      top: -6px;
+      border-right: 8px solid #0ea5e9;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .feedback-loop span {
+      position: absolute;
+      right: 5px;
+      top: 24px;
+      writing-mode: vertical-rl;
+      color: #0284c7;
+      background: rgba(255, 255, 255, .88);
+      padding: 7px 2px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .profiles {
+      height: 756px;
+      display: grid;
+      grid-template-rows: 367px 367px;
+      gap: 22px;
+    }
+
+    .profile {
+      --accent: #2563eb;
+      --soft: #eef6ff;
+      position: relative;
+      overflow: hidden;
+      padding: 20px 20px 16px;
+      border: 1.5px solid color-mix(in srgb, var(--accent) 68%, white);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,.98), transparent 43%),
+        linear-gradient(160deg, #ffffff, var(--soft));
+      box-shadow: var(--shadow);
+    }
+
+    .profile.arx { --accent:#059669; --soft:#ecfdf5; }
+
+    .profile::before {
+      content: "";
+      position: absolute;
+      left: -23px;
+      top: 48%;
+      width: 22px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .profile::after {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: calc(48% - 4px);
+      border-right: 8px solid var(--accent);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    .profile h2 {
+      margin: 0;
+      color: var(--accent);
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 820;
+      letter-spacing: .35px;
+    }
+
+    .profile .profile-type {
+      margin-top: 7px;
+      color: #64748b;
+      text-align: center;
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 1.25px;
+    }
+
+    .photo-wrap {
+      height: 188px;
+      display: grid;
+      place-items: center;
+      padding-top: 4px;
+    }
+
+    .photo-wrap img {
+      display: block;
+      max-width: 276px;
+      max-height: 180px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 12px rgba(15, 23, 42, .18));
+    }
+
+    .profile.arx .photo-wrap img {
+      max-width: 278px;
+      max-height: 176px;
+    }
+
+    .profile-chips {
+      display: grid;
+      gap: 7px;
+    }
+
+    .profile-chip {
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent) 55%, white);
+      border-radius: 8px;
+      background: rgba(255,255,255,.86);
+      color: #27364a;
+      font-size: 10px;
+      font-weight: 780;
+      letter-spacing: .15px;
+    }
+
+    .guardrails {
+      height: 148px;
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 300px repeat(6, 1fr);
+      align-items: center;
+      border: 1.5px solid #f59e0b;
+      border-radius: 17px;
+      background:
+        linear-gradient(90deg, rgba(245,158,11,.08), rgba(255,255,255,.82) 52%, rgba(245,158,11,.05)),
+        #fffbeb;
+      box-shadow: 0 4px 18px rgba(120, 53, 15, .05);
+    }
+
+    .guardrails-title {
+      height: 100%;
+      padding: 28px 18px 20px 28px;
+      border-right: 1px solid rgba(180,83,9,.17);
+    }
+
+    .guardrails-title .shield {
+      width: 36px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      float: left;
+      margin-right: 14px;
+      clip-path: polygon(50% 0, 94% 17%, 88% 67%, 50% 100%, 12% 67%, 6% 17%);
+      background: #d97706;
+      color: white;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .guardrails-title strong {
+      display: block;
+      padding-top: 3px;
+      color: #713f12;
+      font-size: 15px;
+      line-height: 1.18;
+      font-weight: 820;
+    }
+
+    .guardrails-title span {
+      display: block;
+      margin-top: 8px;
+      color: #92400e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .8px;
+    }
+
+    .guard {
+      height: 88px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .guard .guard-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border: 1.5px solid #d97706;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #b45309;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .4px;
+    }
+
+    .guard strong {
+      color: #5d3006;
+      font-size: 10.5px;
+      line-height: 1.15;
+      font-weight: 810;
+    }
+
+    .footer {
+      height: 34px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      color: #7b8798;
+      font-size: 9px;
+      font-weight: 650;
+      letter-spacing: .45px;
+    }
+  </style>
+</head>
+<body>
+  <main class="canvas" aria-label="Geek Mind architecture diagram">
+    <header class="header">
+      <h1>Geek Mind Architecture</h1>
+      <p>One Agent Runtime · Multiple Embodiments (Go2 · ARX X5)</p>
+      <span class="flow-caption">ACTION FLOW ↓</span>
+      <span class="flow-sequence">
+        OBSERVE <i></i> FUSE <i></i> PLAN <i></i> ORCHESTRATE <i></i> EXECUTE <i></i> VERIFY
+      </span>
+    </header>
+
+    <section class="architecture">
+      <div class="stack">
+        <div class="feedback-loop"><span>VERIFIED RESULT FEEDBACK</span></div>
+
+        <article class="layer l7">
+          <div class="layer-label">
+            <div class="layer-number">7</div>
+            <div class="layer-name">USER<br>INTERACTION<small>MULTIMODAL I/O</small></div>
+          </div>
+          <div class="modules cols-4">
+            <div class="module with-badge"><b class="module-badge">MIC</b><strong>VOICE / ASR</strong><span>wake word · speech input</span></div>
+            <div class="module with-badge"><b class="module-badge">TXT</b><strong>TEXT / UI</strong><span>commands · operator console</span></div>
+            <div class="module with-badge"><b class="module-badge">VIS</b><strong>VLM / VISION</strong><span>scene · object · camera</span></div>
+            <div class="module with-badge"><b class="module-badge">TTS</b><strong>SPEECH OUTPUT</strong><span>status · completion · errors</span></div>
+          </div>
+          <span class="down-arrow"></span>
+        </article>
+
+        <article class="layer l6">
+          <div class="layer-label">
+            <div class="layer-number">6</div>
+            <div class="layer-name">CONTEXT &amp;<br>INPUT FUSION<small>LIVE CONTEXT</small></div>
+          </div>
+          <div class="modules cols-3">
+            <div class="module"><strong>INPUT FUSION</strong><span>voice · vision · robot state</span></div>
+            <div class="module"><strong>DYNAMIC CONTEXT</strong><span>mode · memory · available tools</span></div>
+            <div class="module"><strong>IO PROVIDER</strong><span>latest snapshots · timestamp · tick</span></div>
+          </div>
+          <span class="down-arrow"></span>
+        </article>
+
+        <article class="layer l5">
+          <div class="layer-label">
+            <div class="layer-number">5</div>
+            <div class="layer-name">TASK &amp;<br>CORTEX LOOP<small>PLAN / REACT</small></div>
+          </div>
+          <div class="modules cols-3 sequence">
+            <div class="module"><strong>TASK STATE</strong><span>decompose · queue · advance</span></div>
+            <div class="module"><strong>CORTEX LOOP</strong><span>LLM · MCP · function calls</span></div>
+            <div class="module"><strong>INTENT &amp; TOOL SELECTION</strong><span>select · recall · bounded tool loop</span></div>
+          </div>
+          <span class="down-arrow"></span>
+        </article>
+
+        <article class="layer l4">
+          <div class="layer-label">
+            <div class="layer-number">4</div>
+            <div class="layer-name">ACTION<br>ORCHESTRATION<small>VALIDATE / DISPATCH</small></div>
+          </div>
+          <div class="modules cols-3 sequence">
+            <div class="module"><strong>VALIDATE &amp; GATE</strong><span>schema · capability · freshness</span></div>
+            <div class="module"><strong>ACTION ORCHESTRATOR</strong><span>sequence · parallel · dependencies</span></div>
+            <div class="module"><strong>RESULT FEEDBACK</strong><span>normalize · verify · reinject</span></div>
+          </div>
+          <span class="down-arrow"></span>
+        </article>
+
+        <article class="layer l3">
+          <div class="layer-label">
+            <div class="layer-number">3</div>
+            <div class="layer-name">EMBODIMENT<br>INTERFACE<small>CAPABILITY ROUTING</small></div>
+          </div>
+          <div class="modules cols-interface">
+            <div class="module"><strong>CAPABILITY ROUTER</strong><span>config · registry · preflight</span></div>
+            <div class="module"><strong>UNIFIED ACTION &amp; STATE</strong><span>command · state · event · result</span></div>
+            <div class="module"><strong>HEALTH &amp; CANCEL</strong><span>status · timeout · cancel</span></div>
+          </div>
+          <span class="down-arrow"></span>
+        </article>
+
+        <article class="layer l2">
+          <div class="layer-label">
+            <div class="layer-number">2</div>
+            <div class="layer-name">PROVIDERS &amp;<br>SERVICES<small>CONTINUOUS STATE</small></div>
+          </div>
+          <div class="modules cols-4">
+            <div class="module"><strong>SENSORS</strong><span>camera · audio · LiDAR</span></div>
+            <div class="module"><strong>STATE PROVIDERS</strong><span>robot · navigation · joints</span></div>
+            <div class="module"><strong>BACKGROUND</strong><span>mission · perception</span></div>
+            <div class="module"><strong>CONNECTORS</strong><span>Zenoh · SDK · ROS 2</span></div>
+          </div>
+          <span class="down-arrow"></span>
+        </article>
+
+        <article class="layer l1">
+          <div class="layer-label">
+            <div class="layer-number">1</div>
+            <div class="layer-name">HARDWARE &amp;<br>TRANSPORT<small>ROBOT-SPECIFIC</small></div>
+          </div>
+          <div class="modules cols-3">
+            <div class="module"><strong>GO2 MOBILE BASE</strong><span>locomotion · native navigation</span></div>
+            <div class="module"><strong>ARX X5 ARM</strong><span>grasp · reset · gripper</span></div>
+            <div class="module"><strong>D435 + MID360</strong><span>RGB-D · point cloud · localization</span></div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="profiles" aria-label="Embodiment profiles">
+        <section class="profile go2">
+          <h2>EMBODIMENT · GO2</h2>
+          <div class="profile-type">MOBILE MANIPULATION PROFILE</div>
+          <div class="photo-wrap"><img src="unitree-go2.png" alt="Unitree Go2 robot"></div>
+          <div class="profile-chips">
+            <div class="profile-chip">UNITREE SDK · NATIVE NAV</div>
+            <div class="profile-chip">D435 · MID360 · ROBOT STATE</div>
+            <div class="profile-chip">LOCOMOTION · OPTIONAL ARX ARM</div>
+          </div>
+        </section>
+
+        <section class="profile arx">
+          <h2>EMBODIMENT · ARX X5</h2>
+          <div class="profile-type">STATIONARY MANIPULATION PROFILE</div>
+          <div class="photo-wrap"><img src="arx-x5.png" alt="ARX X5 robotic arm"></div>
+          <div class="profile-chips">
+            <div class="profile-chip">ZENOH · GRASP CONNECTOR</div>
+            <div class="profile-chip">D435 RGB-D · JOINT / EEF STATE</div>
+            <div class="profile-chip">ARM · GRIPPER · GRASP / RESET</div>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="guardrails">
+      <div class="guardrails-title">
+        <div class="shield">✓</div>
+        <strong>Runtime Guardrails</strong>
+        <span>ACTIVE ACROSS THE CONTROL PATH</span>
+      </div>
+      <div class="guard"><span class="guard-icon">01</span><strong>SCHEMA<br>VALIDATION</strong></div>
+      <div class="guard"><span class="guard-icon">02</span><strong>HARDWARE<br>PREFLIGHT</strong></div>
+      <div class="guard"><span class="guard-icon">03</span><strong>INPUT<br>FRESHNESS</strong></div>
+      <div class="guard"><span class="guard-icon">04</span><strong>BOUNDED<br>EXECUTION</strong></div>
+      <div class="guard"><span class="guard-icon">05</span><strong>RESULT<br>VERIFICATION</strong></div>
+      <div class="guard"><span class="guard-icon">06</span><strong>CANCELLATION</strong></div>
+    </section>
+
+    <footer class="footer">
+      <span>GEEK MIND · UNIVERSAL EMBODIMENT AGENT RUNTIME</span>
+      <span>Hardware imagery: Unitree Robotics · TidyBot++ (CC BY 4.0) · details in ATTRIBUTION.md</span>
+    </footer>
+  </main>
+</body>
+</html>
