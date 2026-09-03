@@ -12,9 +12,7 @@ Geek Mind is an embodied-agent runtime for connecting multimodal interaction, ta
 
 ## Frontend
 
-<p align="center">
-  <img src="docs/assets/geek-mind-frontend.gif" alt="Geek Mind frontend" width="100%">
-</p>
+![Geek Mind frontend](./docs/assets/geek-mind-frontend-demo.gif)
 
 ## Project Demo
 
