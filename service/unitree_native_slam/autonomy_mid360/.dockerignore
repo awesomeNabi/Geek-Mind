@@ -1,0 +1,10 @@
+**/.git*
+**/__pycache__
+**/*.py[cod]
+**/build
+**/install
+**/log
+**/logs
+**/.pytest_cache
+**/.ruff_cache
+maps

@@ -1,0 +1,227 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [
+        "version",
+        "hertz",
+        "name",
+        "api_key",
+        "system_prompt_base",
+        "system_governance",
+        "system_prompt_examples",
+        "agent_inputs",
+        "cortex_llm",
+        "agent_actions"
+    ],
+    "properties": {
+        "version": {"type": "string"},
+        "hertz": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "The frequency (in Hz) at which the control loop runs. Must be positive."
+        },
+        "name": {"type": "string"},
+        "api_key": {"type": "string"},
+        "URID": {"type": "string"},
+        "unitree_ethernet": {"type": "string"},
+        "system_prompt_base": {"type": "string"},
+        "system_prompt_path": {"type": "string"},
+        "system_governance": {"type": "string"},
+        "system_prompt_examples": {"type": "string"},
+        "knowledge_base": {
+            "type": "object",
+            "description": "Optional knowledge base configuration for document retrieval.",
+            "properties": {
+                "knowledge_base_name": {"type": "string", "description": "Name of the knowledge base directory."},
+                "knowledge_base_root": {"type": "string", "description": "Root directory path for knowledge bases."}
+            }
+        },
+        "agent_inputs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                    "type": {"type": "string"},
+                    "config": {"type": "object"}
+                }
+            }
+        },
+        "simulators": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                    "type": {"type": "string"},
+                    "config": {"type": "object"}
+                }
+            }
+        },
+        "cortex_llm": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+                "type": {"type": "string"},
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "agent_name": {"type": "string"},
+                        "history_length": {"type": "integer"}
+                    }
+                }
+            }
+        },
+        "mode_router_llm": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+                "type": {"type": "string"},
+                "config": {"type": "object"}
+            }
+        },
+        "mode_router": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "min_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+                "input_keys": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "dynamic_variable_keys": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "excluded_dynamic_fields": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "allowed_transitions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["from_mode", "to_modes"],
+                        "properties": {
+                            "from_mode": {"type": "string"},
+                            "to_modes": {
+                                "type": "array",
+                                "items": {"type": "string"}
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                },
+                "memory": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "limit": {"type": "integer", "minimum": 1},
+                        "max_chars": {"type": "integer", "minimum": 1}
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        },
+        "voice_task_planner_llm": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+                "type": {"type": "string"},
+                "config": {"type": "object"}
+            }
+        },
+        "voice_task_planner": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "context_key": {"type": "string"},
+                "memory": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {"type": "boolean"}
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        },
+        "voice_planner_llm": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+                "type": {"type": "string"},
+                "config": {"type": "object"}
+            }
+        },
+        "voice_planner_runtime": {
+            "type": "object",
+            "properties": {
+                "inter_sub_voice_delay_seconds": {
+                    "type": "number",
+                    "minimum": 0
+                },
+                "promote_new_voice_after_plan": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": true
+        },
+        "agent_actions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["name", "connector"],
+                "properties": {
+                    "name": {"type": "string"},
+                    "llm_label": {"type": "string"},
+                    "connector": {"type": "string"},
+                    "config": {"type": "object"},
+                    "exclude_from_prompt": {
+                        "type": "boolean",
+                        "default": false
+                    }
+                }
+            }
+        },
+        "backgrounds": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                    "type": {"type": "string"},
+                    "config": {"type": "object"}
+                }
+            }
+        },
+        "action_execution_mode": {
+            "type": "string",
+            "enum": ["concurrent", "sequential", "dependencies"]
+        },
+        "action_dependencies": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "array",
+                "items": {"type": "string"}
+            }
+        },
+        "action_gate": {
+            "type": "object",
+            "properties": {
+                "require_fresh_input_key": {"type": "string"},
+                "gated_actions": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "voice_carryover_ticks": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}
