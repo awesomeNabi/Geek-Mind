@@ -6,6 +6,8 @@
 
 One Agent Runtime · Multiple Embodiments · Perception-to-Action Closed Loop
 
+[Project Website](https://awesomeNabi.github.io/Geek-Mind/) · [Website Source](./website/)
+
 </div>
 
 Geek Mind is an embodied-agent runtime for connecting multimodal interaction, task planning, tool use, and physical execution across heterogeneous robots. A shared Cortex loop turns voice, text, vision, and robot state into semantic actions, while embodiment adapters route those actions to platforms such as Unitree Go2 and ARX X5 and feed verified execution results back into the next planning cycle.

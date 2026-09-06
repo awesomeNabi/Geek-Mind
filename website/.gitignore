@@ -1,0 +1,6 @@
+/node_modules/
+/dist/
+*.tsbuildinfo
+/public/media/*
+!/public/media/frontend-poster.png
+.env*
