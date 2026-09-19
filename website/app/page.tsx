@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronUp, Code2, Copy, Expand, GitFork as Github, MoveRight, Pause, Play } from 'lucide-react';
+import EmbodimentScene from '@/components/embodiment/EmbodimentScene';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
@@ -44,12 +45,14 @@ export default function Home() {
     <nav className="page-toc" aria-label="On this page"><span className="toc-caption">CONTENTS</span>{sections.map(([id, label], i) => <a href={`#${id}`} key={id} className={active === id ? 'is-active' : ''} aria-current={active === id ? 'location' : undefined}><span>0{i + 1}</span>{label}</a>)}<div className="toc-bottom"><span className="status-dot" />Perception → Action</div></nav>
     <main id="top" className="page-main">
       <section className="hero" aria-labelledby="project-title">
+        <div className="hero-content"><div className="hero-copy">
         <div className="eyebrow"><span className="eyebrow-line" />EMBODIED INTELLIGENCE / PROJECT</div>
         <h1 id="project-title">Geek Mind<span className="title-period">.</span></h1>
         <p className="hero-title">One agent runtime.<br />Multiple embodiments.</p>
         <p className="hero-summary">Connecting multimodal perception, task planning,<br className="desktop-break" /> and physical action in a shared closed loop.</p>
         <div className="hero-meta"><span>Go2</span><span>ARX X5</span><span>Perception-to-action</span></div>
         <div className="project-links"><a href={repo} target="_blank" rel="noopener noreferrer">[<Github size={17} /> Code<ArrowUpRight size={15} />]</a><a href="#demonstration">[<Play size={16} /> Demo<ArrowDown size={15} />]</a><a href={`${repo}#architecture`} target="_blank" rel="noopener noreferrer">[<Code2 size={17} /> Documentation<ArrowUpRight size={15} />]</a></div>
+        </div><EmbodimentScene debug={import.meta.env.DEV && new URLSearchParams(window.location.search).has("scene-review")} fixedTime={import.meta.env.DEV && new URLSearchParams(window.location.search).has("t") ? Number(new URLSearchParams(window.location.search).get("t")) : undefined} /></div>
         <div className="hero-rule"><span>A SHARED MIND. A PHYSICAL WORLD.</span><a href="#overview" aria-label="Read project overview"><ArrowDown size={19} /></a></div>
       </section>
       <section id="overview" className="content-section" aria-labelledby="overview-title">
