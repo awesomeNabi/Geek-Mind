@@ -28,9 +28,9 @@ Geek Mind is an embodied-agent runtime for connecting multimodal interaction, ta
 
 ## Architecture
 
-![Geek Mind Architecture](docs/assets/geek-mind-architecture.png)
+![Geek Mind Architecture](docs/assets/geek-mind-architecture.svg)
 
-The runtime is organized as a layered closed loop: hardware and self-check, providers and background services, a unified embodiment interface, action orchestration, Cortex planning, language-aligned context, and user interaction. Go2 and ARX keep their own sensors, connectors, and actuators while sharing the same high-level task and feedback path.
+The diagram summarizes four stages in a closed loop: Perception, Cortex LLM, MCP / Tools, and Robot Execution. Sensor inputs become language-aligned context; the Cortex reasons and selects tools; execution feedback updates state and memory for the next step. The Go2 and ARX X5 embodiments retain their own sensors, connectors, and actuators while sharing the same high-level task and feedback path.
 
 ## Capabilities
 

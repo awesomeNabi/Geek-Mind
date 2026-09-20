@@ -1,6 +1,8 @@
 # Architecture image sources
 
-The architecture diagram is manually composed in HTML/CSS and rendered to PNG. No generative image tool is used.
+The four-stage architecture diagram is manually drawn as editable SVG, following the supplied simplified architecture reference. No generative image tool is used. The earlier seven-layer HTML composition is retained as a historical source.
+
+Run `python3 docs/assets/architecture-src/build-architecture.py` to regenerate `docs/assets/geek-mind-architecture.svg`. Text, icons, panels, and connectors are vector elements; the two existing hardware photographs are embedded for a self-contained SVG. `docs/assets/geek-mind-architecture.png` is a raster export of the same SVG, retained for existing image links. The website uses the SVG in both its preview and enlargement dialog.
 
 - **Unitree Go2 product image** — Unitree Robotics official shop:  
   <https://shop.unitree.com/products/unitree-go2>  
