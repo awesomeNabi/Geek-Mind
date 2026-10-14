@@ -10,6 +10,7 @@ const files = [
   ['geek-mind-demo.mp4', 'geek-mind-demo.mp4'],
   ['geek-mind-demo-cover.jpg', 'geek-mind-demo-cover.jpg'],
   ['geek-mind-frontend-demo.gif', 'geek-mind-frontend-demo.gif'],
+  ['stardojo-agent-demo.gif', 'stardojo-agent-demo.gif'],
   ['architecture-src/unitree-go2.png', 'unitree-go2.png'],
   ['architecture-src/arx-x5.png', 'arx-x5.png'],
   ['architecture-src/ATTRIBUTION.md', 'ATTRIBUTION.md'],

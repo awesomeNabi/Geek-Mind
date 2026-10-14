@@ -51,6 +51,14 @@ The diagram summarizes four stages in a closed loop: Perception, Cortex LLM, MCP
 
 Deployment is hardware-specific. See [Ubuntu 22.04 + ROS 2 Humble deployment](HUMBLE_SETUP.md) for the Go2 + Mid360 stack, or [Go2 + ARX startup](STARTUP.md) for the combined robot workflow. Real-robot operation must be supervised with a working emergency stop and a clear operating area.
 
+## Benchmark Evaluation
+
+Beyond physical robots, the same Cortex loop is evaluated in [StarDojo](https://weihaotan.github.io/StarDojo/docs/), a long-horizon language-agent benchmark built on Stardew Valley. The agent reads a text observation of the game world, plans multi-step tasks, and calls structured atomic skills; only the official task evaluator decides success.
+
+![StarDojo agent run](./docs/assets/stardojo-agent-demo.gif)
+
+Mandating two-action batching and adding combat affordances lifted farming success from 4.8% to 23.8% on the Lite-100 split. See the [StarDojo integration guide](STARDOJO.md) for the action space, observation contract, agent protocol, and known boundaries.
+
 ## Repository Layout
 
 ```text
