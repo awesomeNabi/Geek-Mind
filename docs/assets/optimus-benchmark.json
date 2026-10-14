@@ -1,0 +1,169 @@
+{
+  "updated_at": "2026-10-14",
+  "overall": {
+    "success_rate_percent": 24.36,
+    "aggregation": "Unweighted mean of success rates for Iron, Gold, Diamond, Redstone, and Armor.",
+    "groups": [
+      "iron",
+      "golden",
+      "diamond",
+      "redstone",
+      "armor"
+    ],
+    "provenance": "Project-reported result and five-group aggregation confirmed by the project owner on 2026-10-14.",
+    "per_group_success_rates": null,
+    "note": "The aggregate result is separate from the single-episode replay. Per-group counts and rates are not supplied with this publication."
+  },
+  "integration": {
+    "magic_revision": "0f8147ff933c95c24590c58c5bc35f4c222f743e",
+    "optimus_revision": "409356cc324a3bf64f31653c6bc0f926b672f19c",
+    "protocol": "optimus-source-inventory-v1",
+    "source_tasks": 73,
+    "groups": [
+      {
+        "id": "wooden",
+        "label": "Wooden",
+        "source_tasks": 12,
+        "included_in_overall": false
+      },
+      {
+        "id": "stone",
+        "label": "Stone",
+        "source_tasks": 10,
+        "included_in_overall": false
+      },
+      {
+        "id": "iron",
+        "label": "Iron",
+        "source_tasks": 17,
+        "included_in_overall": true
+      },
+      {
+        "id": "golden",
+        "label": "Gold",
+        "source_tasks": 7,
+        "included_in_overall": true
+      },
+      {
+        "id": "diamond",
+        "label": "Diamond",
+        "source_tasks": 7,
+        "included_in_overall": true
+      },
+      {
+        "id": "redstone",
+        "label": "Redstone",
+        "source_tasks": 7,
+        "included_in_overall": true
+      },
+      {
+        "id": "armor",
+        "label": "Armor",
+        "source_tasks": 13,
+        "included_in_overall": true
+      }
+    ],
+    "note": "The 73-row source catalog has not been aligned to the exact 67-task paper protocol."
+  },
+  "replay": {
+    "task_id": "minecraft/wooden/00",
+    "goal": "Craft a wooden shovel",
+    "run_id": "optimus-full-20261014-183024",
+    "model": "deepseek-flash",
+    "success": true,
+    "status": "environment_completed",
+    "env_steps": 1430,
+    "actions": 7,
+    "decisions": 7,
+    "episode_seconds": 298.76181509997696,
+    "recovery": "repeat",
+    "max_replans": 3,
+    "replans_used": 0,
+    "planner": false,
+    "verifier": "none",
+    "memory_enabled": false,
+    "seed_label": 0,
+    "speed": 4,
+    "gif_seconds": 57.37,
+    "gif_frames": 77,
+    "width": 640,
+    "height": 470,
+    "gif": "optimus-agent-demo.gif",
+    "poster": "optimus-agent-poster.png",
+    "bytes": 12575156,
+    "sha256": "213ed4ba7b9b24671dffbe56916ff6ed85de1044ab68667d72f76ff81a70db3d",
+    "capture": "Published POV frames every 20 native control steps and at skill boundaries, played at 4x with a final outcome card. Startup before the first image is not shown.",
+    "action_trace": [
+      {
+        "step": 1,
+        "skill": "policy",
+        "instruction": "chop a tree to get a log",
+        "item": "oak_log",
+        "quantity": 1,
+        "requested_steps": 200,
+        "actual_steps": 200,
+        "status": "completed"
+      },
+      {
+        "step": 2,
+        "skill": "policy",
+        "instruction": "Chop down a tree to collect logs",
+        "item": "oak_log",
+        "quantity": 1,
+        "requested_steps": 600,
+        "actual_steps": 600,
+        "status": "completed"
+      },
+      {
+        "step": 3,
+        "skill": "craft",
+        "instruction": "Craft oak planks from oak log",
+        "item": "oak_planks",
+        "quantity": 4,
+        "requested_steps": 600,
+        "actual_steps": 79,
+        "status": "completed"
+      },
+      {
+        "step": 4,
+        "skill": "craft",
+        "instruction": "Craft a crafting table from oak planks",
+        "item": "crafting_table",
+        "quantity": 1,
+        "requested_steps": 1200,
+        "actual_steps": 101,
+        "status": "completed"
+      },
+      {
+        "step": 5,
+        "skill": "craft",
+        "instruction": "Craft oak planks from the oak log",
+        "item": "oak_planks",
+        "quantity": 4,
+        "requested_steps": 600,
+        "actual_steps": 66,
+        "status": "completed"
+      },
+      {
+        "step": 6,
+        "skill": "craft",
+        "instruction": "craft sticks from oak planks",
+        "item": "stick",
+        "quantity": 4,
+        "requested_steps": 400,
+        "actual_steps": 87,
+        "status": "completed"
+      },
+      {
+        "step": 7,
+        "skill": "craft",
+        "instruction": "Craft a wooden shovel",
+        "item": "wooden_shovel",
+        "quantity": 1,
+        "requested_steps": 600,
+        "actual_steps": 297,
+        "status": "completed"
+      }
+    ]
+  }
+}

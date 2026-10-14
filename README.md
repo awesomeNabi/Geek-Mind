@@ -53,6 +53,14 @@ Deployment is hardware-specific. See [Ubuntu 22.04 + ROS 2 Humble deployment](HU
 
 ## Benchmark Evaluation
 
+The shared decision loop also connects to **[Optimus-1 / Minecraft](https://github.com/iLearn-Lab/NeurIPS24-Optimus-1)** through the MAGIC benchmark adapter. MAGIC selects skills from text observations; STEVE-1 and native GUI helpers execute them, and an independent inventory check judges task completion.
+
+**Current overall success rate: 24.36%**, the unweighted mean of Iron, Gold, Diamond, Redstone, and Armor success rates, following the official overall definition (project-reported, 2026-10-14). The integration exports 73 source tasks across seven groups; it has not yet been aligned to the paper’s exact 67-task protocol.
+
+![MAGIC completes a wooden shovel in Minecraft, replayed at 4× speed](./docs/assets/optimus-agent-demo.gif)
+
+The replay completes `minecraft/wooden/00` in 1,430 control steps and 7 skill calls. Wooden tasks are outside the five-group overall metric. See the [Optimus integration guide](OPTIMUS.md) for the architecture, tools, scoring, run commands, and replay provenance, or [explore it on the project website](https://awesomenabi.github.io/Geek-Mind/#optimus).
+
 Beyond physical robots, the same Cortex loop is evaluated in [StarDojo](https://weihaotan.github.io/StarDojo/docs/), a long-horizon language-agent benchmark built on Stardew Valley. The agent reads a text observation of the game world, plans multi-step tasks, and calls structured atomic skills; only the official task evaluator decides success.
 
 ![StarDojo agent run](./docs/assets/stardojo-agent-demo.gif)
