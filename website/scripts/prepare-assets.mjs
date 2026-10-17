@@ -5,6 +5,8 @@ const source = new URL('../../docs/assets/', import.meta.url);
 const destination = new URL('../public/media/', import.meta.url);
 mkdirSync(destination, { recursive: true });
 const files = [
+  ['geek-mind-real-world-demo.mp4', 'geek-mind-real-world-demo.mp4'],
+  ['geek-mind-real-world-poster.jpg', 'geek-mind-real-world-poster.jpg'],
   ['geek-mind-architecture.svg', 'geek-mind-architecture.svg'],
   ['geek-mind-architecture.png', 'geek-mind-architecture.png'],
   ['geek-mind-demo.mp4', 'geek-mind-demo.mp4'],
