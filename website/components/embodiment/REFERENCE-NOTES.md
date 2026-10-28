@@ -7,6 +7,7 @@ The displayed scene is authored as SVG paths, geometric primitives, gradients an
 - User-provided 7.6-second recording, with the original video identified as [YouTube reference](https://www.youtube.com/watch?v=w9JAPJ8CXz4).
 - User-provided PiPER arm image, used to draw the arm casing, joints, labels and gripper.
 - User-provided Geek Mind homepage image, used to place the square scene in the hero's right column.
+- [AgileX Ranger official product page](https://global.agilex.ai/products/ranger), requested by the project owner and inspected on 2026-10-28. Its three-quarter and side product photos guide the silver body, dark mounting deck and rails, underbody battery, coil suspension, tires, rims and side markings. The product's four-wheel steering and lateral movement inform the added motion. The photos remain references and are not bundled with the animation; no manufacturer CAD or mesh is imported. The fixed-view SVG is an illustration, not a dimensionally calibrated simulation, and it does not assert Ranger integration in the project's robot runtime.
 
 ## Structural cross-check
 

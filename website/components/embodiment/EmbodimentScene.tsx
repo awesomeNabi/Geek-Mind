@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
-import { renderSVG } from "./geometry";
-import { buildDog } from "./robots";
 import { armPortrait, dogPortrait, portraitDefs } from "./portraits";
-import { ANIMATION, ramp, sampleTimeline } from "./timeline";
+import { rangerDefs, rangerPortrait } from "./ranger";
+import { ANIMATION, sampleTimeline } from "./timeline";
+import { useLanguage } from "@/lib/i18n";
 import "./embodiment.css";
 
 /** Hand-authored SVG showcase. fixedTime is useful for reproducible visual QA. */
@@ -15,12 +15,15 @@ export default function EmbodimentScene({
   fixedTime?: number;
   debug?: boolean;
 }) {
+  const { t } = useLanguage();
   const id = useId().replaceAll(":", "");
   const root = useRef<HTMLElement>(null),
     dog = useRef<SVGGElement>(null),
+    ranger = useRef<SVGGElement>(null),
     arm = useRef<SVGGElement>(null);
   const progress = useRef<SVGPathElement>(null);
   const dogShadow = useRef<SVGGElement>(null),
+    rangerShadow = useRef<SVGGElement>(null),
     armShadow = useRef<SVGGElement>(null);
   const elapsed = useRef(0),
     visible = useRef(true);
@@ -53,40 +56,35 @@ export default function EmbodimentScene({
       lastDraw = -Infinity,
       lastStage = -1;
     let lastDog = "",
+      lastRanger = "",
       lastArm = "";
-    let orbitGeometry: ReturnType<typeof buildDog> | undefined;
     let renderCount = 0,
       worstRenderMs = 0;
     const render = (time: number) => {
       const renderStarted = performance.now();
       const state = sampleTimeline(time);
       dogShadow.current?.setAttribute("opacity", String(state.dogOpacity));
+      rangerShadow.current?.setAttribute("opacity", String(state.rangerOpacity));
+      rangerShadow.current?.setAttribute("transform", `matrix(${state.rangerTransform.join(" ")})`);
       armShadow.current?.setAttribute("opacity", String(state.armOpacity));
-      if (!orbitGeometry && state.t >= ANIMATION.wheelsFade[1] && state.t <= ANIMATION.orbit[0]) {
-        orbitGeometry = buildDog(sampleTimeline(ANIMATION.orbit[0]).dog);
-      }
       if (dog.current) {
         dog.current.setAttribute("opacity", String(state.dogOpacity));
-        const orbit = state.t > ANIMATION.orbit[0] && state.t < ANIMATION.orbit[1];
-        const dogKey = orbit ? `orbit-${state.t}` : JSON.stringify(state.dog);
+        dog.current.setAttribute("transform", `matrix(${state.dogTransform.join(" ")})`);
+        const dogKey = JSON.stringify(state.dog);
         if (state.dogOpacity > 0.003 && dogKey !== lastDog) {
           lastDog = dogKey;
-          const portrait = portraitDefs(`${id}-dog`) + dogPortrait(`${id}-dog`, state.dog);
-          if (orbit) {
-            const blend =
-              ramp(state.t, ANIMATION.orbit[0], ANIMATION.orbit[0] + ANIMATION.orbitBlend) *
-              (1 - ramp(state.t, ANIMATION.orbit[1] - ANIMATION.orbitBlend, ANIMATION.orbit[1]));
-            orbitGeometry ??= buildDog(state.dog);
-            const geometry = renderSVG(
-              orbitGeometry,
-              {
-                ...state.dogCamera,
-                target: [0, 1.47, 0],
-              },
-              `${id}-orbit`,
-            );
-            dog.current.innerHTML = `<g opacity="${1 - blend}">${portrait}</g><g opacity="${blend}">${geometry}</g>`;
-          } else dog.current.innerHTML = portrait;
+          // Keep the original curved silver shells in every dog frame. The
+          // showcase moves this whole group; it never swaps to another model.
+          dog.current.innerHTML = portraitDefs(`${id}-dog`) + dogPortrait(`${id}-dog`, state.dog);
+        }
+      }
+      if (ranger.current) {
+        ranger.current.setAttribute("opacity", String(state.rangerOpacity));
+        ranger.current.setAttribute("transform", `matrix(${state.rangerTransform.join(" ")})`);
+        const rangerKey = JSON.stringify(state.ranger);
+        if (state.rangerOpacity > 0.003 && rangerKey !== lastRanger) {
+          lastRanger = rangerKey;
+          ranger.current.innerHTML = rangerDefs(`${id}-ranger`) + rangerPortrait(`${id}-ranger`, state.ranger);
         }
       }
       if (arm.current) {
@@ -151,9 +149,9 @@ export default function EmbodimentScene({
   return (
     <figure
       className={`embodiment-scene${debug ? " embodiment-debug" : ""}`}
-      data-scene-version="20260919-svg-v4"
+      data-scene-version="20261028-ranger-v7"
       ref={root}
-      aria-label="Geek Mind 通用具身大脑：四足机械狗、轮足机械狗与松灵 PiPER 机械臂循环展示"
+      aria-label={t("Geek Mind: quadruped, wheeled quadruped, Ranger mobile base and PiPER arm showcase")}
     >
       <svg
         viewBox="0 0 640 640"
@@ -161,10 +159,9 @@ export default function EmbodimentScene({
         aria-labelledby={`${id}-title ${id}-desc`}
         className="embodiment-svg"
       >
-        <title id={`${id}-title`}>Geek Mind 通用具身大脑</title>
+        <title id={`${id}-title`}>Geek Mind · {t("Universal embodied intelligence")}</title>
         <desc id={`${id}-desc`}>
-          银色四足机器人踏步，小腿淡出并切换为轮足机器人，环绕展示后淡出，出现松灵 PiPER
-          机械臂；机械臂伸展并开合夹爪，随后回到四足形态。
+          {t("The original silver quadruped steps, changes to wheels and gently tilts. A Ranger mobile base then steers its four wheels and moves sideways, followed by a PiPER arm reaching and opening its gripper before the loop restarts.")}
         </desc>
         <defs>
           <radialGradient id={`${id}-floor`}>
@@ -190,7 +187,7 @@ export default function EmbodimentScene({
           Geek Mind
         </text>
         <text x="320" y="88" textAnchor="middle" className="scene-subheading">
-          通用具身大脑
+          {t("Universal embodied intelligence")}
         </text>
         <path d="M218 107H422" stroke={`url(#${id}-rule)`} />
         <ellipse cx="320" cy="522" rx="242" ry="50" fill={`url(#${id}-floor)`} />
@@ -204,6 +201,10 @@ export default function EmbodimentScene({
             opacity=".13"
             filter={`url(#${id}-shadow)`}
           />
+        </g>
+        <g ref={rangerShadow} data-shadow="ranger" opacity="0">
+          <ellipse cx="325" cy="520" rx="190" ry="18" fill="#46514e" opacity=".16" filter={`url(#${id}-shadow)`} />
+          <ellipse cx="303" cy="551" rx="42" ry="5" fill="#28342e" opacity=".14" filter={`url(#${id}-contact)`} />
         </g>
         <g ref={armShadow} data-shadow="arm" opacity="0">
           <ellipse
@@ -227,6 +228,7 @@ export default function EmbodimentScene({
         </g>
         <g clipPath={`url(#${id}-bounds)`}>
           <g ref={dog} data-model="go2" />
+          <g ref={ranger} data-model="ranger" opacity="0" />
           <g ref={arm} data-model="piper" opacity="0" />
         </g>
         <path d="M46 579H594" stroke="#dcd8cf" strokeWidth="1" />
@@ -240,9 +242,9 @@ export default function EmbodimentScene({
       </svg>
       <figcaption className="scene-caption">
         <span className="scene-stages">
-          {["01 足式", "02 轮式", "03 松灵 PiPER"].map((label, i) => (
+          {["01 Legged", "02 Wheeled", "03 Ranger", "04 PiPER"].map((label, i) => (
             <span key={label} className={i === stage ? "active" : ""}>
-              {label}
+              {t(label)}
             </span>
           ))}
         </span>
@@ -252,7 +254,8 @@ export default function EmbodimentScene({
             if (reduced) setReduced(false);
             else setPaused(!paused);
           }}
-          aria-label={paused || reduced ? "播放机器人动画" : "暂停机器人动画"}
+          aria-label={t(paused || reduced ? "Play robot animation" : "Pause robot animation")}
+          aria-pressed={paused || reduced}
         >
           {paused || reduced ? <Play size={13} /> : <Pause size={13} />}
         </button>
@@ -260,12 +263,12 @@ export default function EmbodimentScene({
       {debug && (
         <div className="scene-debug-controls">
           <label>
-            时间{" "}
+            {t("Time")}{" "}
             <input
-              aria-label="动画时间"
+              aria-label={t("Animation time")}
               type="range"
               min="0"
-              max="14.99"
+              max={ANIMATION.duration - 0.01}
               step=".01"
               value={timeOverride ?? 0}
               onChange={(e) => setSeek(Number(e.target.value))}
@@ -279,9 +282,9 @@ export default function EmbodimentScene({
               setPaused(false);
             }}
           >
-            循环
+            {t("Loop")}
           </button>
-          {[0, 2.2, 3.7, 4.6, 5.3, 5.6, 5.8, 6, 6.2, 6.5, 7, 8.2, 9, 11, 13, 14.6].map((t) => (
+          {[0, 2.2, 4.6, 6.4, 9.4, 10.6, 11.2, 12, 12.8, 14.2, 15.2, 16.2, 17.2, 18, 20, 22, 23.6].map((t) => (
             <button key={t} onClick={() => setSeek(t)}>
               {t}s
             </button>

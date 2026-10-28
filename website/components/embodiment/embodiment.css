@@ -12,6 +12,9 @@
   letter-spacing: -5.5px;
   white-space: nowrap;
 }
+html[lang=zh-CN] .hero-content h1 {
+  letter-spacing: -0.05em;
+}
 .hero-content .hero-title {
   font-size: clamp(29px, 3.25vw, 44px);
 }
@@ -40,7 +43,7 @@
   overflow: visible;
 }
 .scene-heading {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-display);
   font-size: 30px;
   fill: #303c33;
   letter-spacing: -0.7px;
@@ -50,6 +53,9 @@
   font-size: 19px;
   fill: #58705b;
   letter-spacing: 3px;
+}
+html[lang=zh-CN] .scene-subheading {
+  font-family: var(--font-display);
 }
 .scene-caption {
   position: absolute;
@@ -64,11 +70,17 @@
 }
 .scene-stages {
   display: flex;
-  gap: 18px;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-between;
+  min-width: 0;
   font-family: "Roboto Mono", "PingFang SC", monospace;
   font-size: 10px;
   letter-spacing: 0.2px;
   color: #a8a69f;
+}
+.scene-stages > span {
+  white-space: nowrap;
 }
 .scene-stages .active {
   color: #446c55;
@@ -168,13 +180,20 @@
     margin: -12px 0 20px;
   }
   .scene-stages {
-    gap: 18px;
-    font-size: 11px;
+    gap: 8px;
+    font-size: 10px;
   }
 }
 @media (max-width: 390px) {
+  html[lang=zh-CN] .hero-content h1 {
+    font-size: clamp(52px, 16.4vw, 64px);
+  }
   .scene-stages {
-    gap: 10px;
-    font-size: 9px;
+    gap: 4px;
+    font-size: 8px;
+  }
+  .scene-caption button {
+    width: 22px;
+    height: 22px;
   }
 }

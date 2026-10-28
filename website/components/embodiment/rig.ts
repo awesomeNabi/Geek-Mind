@@ -73,3 +73,12 @@ export function portraitCamera(pose: DogPose) {
   const q = pose.morph;
   return `translate(${lerp(-42, 10, q)} ${lerp(77, 125, q)}) scale(${lerp(0.63, 0.54, q)})`;
 }
+
+/** A rigid screen-plane presentation of the original fixed-view artwork.
+ * Rotation and translation only: no skew, perspective, mirroring or scaling. */
+export function rigidPresentation(turn: number): [number, number, number, number, number, number] {
+  const angle = turn * 2.2 * Math.PI / 180;
+  const c = Math.cos(angle), s = Math.sin(angle);
+  const cx = 320, cy = 475;
+  return [c, s, -s, c, cx - c * cx + s * cy + 5 * turn, cy - s * cx - c * cy];
+}
