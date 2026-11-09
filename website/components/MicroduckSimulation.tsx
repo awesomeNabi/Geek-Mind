@@ -1,4 +1,5 @@
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, Expand, Terminal } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Expand, Play, Square, Terminal } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useLanguage } from '@/lib/i18n';
 import validation from '../../docs/assets/microduck-validation.json';
@@ -13,6 +14,15 @@ const flow = [
 
 export default function MicroduckSimulation() {
   const { t } = useLanguage();
+  const [playing, setPlaying] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const { replay } = validation;
+  const replaySource = `./media/${playing ? replay.gif : replay.poster}`;
+  const replayControl = (imageId: string) => (
+    <button type="button" onClick={() => setPlaying(value => !value)} aria-pressed={playing} aria-controls={imageId}>
+      {playing ? <Square size={14} /> : <Play size={14} />}
+      {t(playing ? 'Stop replay' : 'Play replay')}
+    </button>
+  );
   return (
     <>
       <div className="benchmark-heading microduck-heading">
@@ -31,23 +41,28 @@ export default function MicroduckSimulation() {
       <figure className="frontend-figure microduck-preview">
         <div className="media-topline">
           <span><span className="status-dot" />{t("MICRODUCK / OPERATOR VIEW")}</span>
-          <span>{t("RECORDED SIMULATION SESSION")}</span>
+          {replayControl('microduck-replay-image')}
         </div>
         <Dialog>
           <DialogTrigger className="microduck-preview-trigger" aria-label={t("Enlarge recorded Microduck operator view")}>
-            <img src="./media/microduck-interactive-preview.png" width="1425" height="1302" loading="lazy" alt={t("Recorded Microduck session: third-person robot view, head camera, pose, five completed actions, and agent events in the apartment simulation.")} />
+            <img id="microduck-replay-image" src={replaySource} width={replay.width} height={replay.height} loading="lazy" alt={t("Recorded Microduck replay: walking, sitting, standing, a look command, and a snapshot, with two camera views and changing agent status.")} />
             <span className="enlarge-label"><Expand size={15} />{t("Inspect operator view")}</span>
           </DialogTrigger>
           <DialogContent className="architecture-dialog microduck-dialog">
             <DialogTitle>{t("Microduck operator view")}</DialogTitle>
-            <DialogDescription>{t("A recorded session from 9 November 2026. The running application streams both views; this project page shows a static capture.")}</DialogDescription>
-            <div className="microduck-image-scroll" role="region" aria-label={t("Full-size operator capture, scroll to inspect")} tabIndex={0}>
-              <img src="./media/microduck-interactive-preview.png" width="1425" height="1302" alt={t("Full recorded Microduck operator view with a completed walk, sit, stand, look, and snapshot sequence.")} />
+            <DialogDescription>{t("A recorded GIF from 9 November 2026. Watch the robot move and the agent status update through a fixed five-action demo in the actual simulator.")}</DialogDescription>
+            <div className="media-topline">
+              <span>{replay.duration_seconds} {t("s · 1× replay")}</span>
+              {replayControl('microduck-dialog-image')}
+            </div>
+            <div className="microduck-image-scroll" role="region" aria-label={t("Full-size operator replay, scroll to inspect")} tabIndex={0}>
+              <img id="microduck-dialog-image" src={replaySource} width={replay.width} height={replay.height} alt={t("Recorded Microduck replay: walking, sitting, standing, a look command, and a snapshot, with two camera views and changing agent status.")} />
             </div>
           </DialogContent>
         </Dialog>
-        <figcaption><span>{t("04 / Robot body · Head camera · Agent state")}</span><span>{t("Project capture · 9 Nov 2026")}</span></figcaption>
+        <figcaption><span>{t("04 / Robot body · Head camera · Agent state")}</span><span>{replay.duration_seconds} {t("s · 1× replay")} · GIF</span></figcaption>
       </figure>
+      <p className="benchmark-replay-note">{t("Recorded simulation · Walk → sit → stand → look → snapshot. The robot views and agent status come from the same run; the fixed /demo sequence does not call the model planner.")}</p>
 
       <ol className="benchmark-flow" aria-label={t("MAGIC to Microduck execution flow")}>
         {flow.map(([title, description], index) => (
@@ -100,6 +115,7 @@ export default function MicroduckSimulation() {
       <div className="benchmark-links">
         <a href={`${repo}/blob/main/MICRODUCK.md`} target="_blank" rel="noopener noreferrer" className="inline-link">{t("Microduck integration guide")} <ArrowUpRight size={16} /></a>
         <a href="./media/microduck-validation.json" target="_blank" rel="noopener noreferrer" className="inline-link">{t("Validation summary")} <ArrowUpRight size={16} /></a>
+        <a href={`./media/${replay.gif}`} download className="inline-link">{t("Download Microduck GIF")} <ArrowUpRight size={16} /></a>
       </div>
     </>
   );

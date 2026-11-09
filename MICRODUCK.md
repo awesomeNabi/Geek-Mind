@@ -4,9 +4,11 @@ Geek Mind's MAGIC task runtime now connects to **[Microduck in MuJoCo / ROS 2](h
 
 > Project-reported validation: 2026-11-09. This integration has been exercised in simulation; no physical Microduck was connected.
 
-![Microduck operator view: robot body, head camera, task plan, and agent events](./docs/assets/microduck-interactive-preview.png)
+![Microduck replay: robot body, head camera, task plan, and agent events](./docs/assets/microduck-agent-demo.gif)
 
-*A recorded operator view after a five-action demo completed. The running application streams both views; the public project page shows this static capture.*
+*13.6-second GIF at original speed: walk → sit → stand → look → snapshot. The actual MAGIC runtime executes the fixed `/demo` plan in MuJoCo while both camera views and agent status update. All five actions completed. The website loops the recording automatically and provides stop/play and enlarge controls; reduced-motion preferences start with a still poster.*
+
+The replay was recorded on 2026-11-09 and encoded at 960 × 944, 5 FPS (68 frames, approximately 2.6 MiB), preserving the captured timing. Local filesystem paths in the event panel were replaced before capture; robot images and execution data were not altered. Encoding details and the GIF checksum are in the [validation summary](./docs/assets/microduck-validation.json).
 
 ## Architecture
 
@@ -122,14 +124,14 @@ The [public validation summary](./docs/assets/microduck-validation.json) records
 | Continuous viewing | Zero new screenshot files during the viewing check |
 | Navigation, 2026-11-08 | North-corridor arrival error approximately 0.229 m within a 0.3 m tolerance; kitchen-route cancellation also verified |
 
-These are checks of this integration on one prepared server, not a benchmark success rate. The final screenshot and five-action console test used `/demo`, which bypasses model planning while retaining the actual MAGIC execution path. The natural-language results came from separate live-model sessions. The observer's configurable target is 6 FPS; the sampled two-view run delivered about 3 distinct frames per second per view.
+These are checks of this integration on one prepared server, not a benchmark success rate. The GIF replay and five-action console test used `/demo`, which bypasses model planning while retaining the actual MAGIC execution path. The natural-language results came from separate live-model sessions. The observer's configurable target is 6 FPS; the sampled two-view run delivered about 3 distinct frames per second per view.
 
 ## Boundaries
 
 - **Simulation only.** Physical hardware, all-room route coverage, object recognition, and successful grasping, kicking, or rolling tasks have not been validated.
 - **Cancellation depends on the action.** Walking and navigation cancellation were checked. Learned skills use upstream Trigger services that cannot be interrupted mid-motion; `/stop` blocks subsequent actions and waits for the current skill to finish.
 - **Receipts have specific meanings.** `look` confirms command dispatch, not a measured final head pose. `snapshot` confirms image capture, not semantic scene understanding.
-- **The website is a showcase.** Its operator capture and terminal example are recorded or illustrative content. Live control and observation require the integration workspace and running simulator.
+- **The website is a showcase.** Its GIF is a recorded simulation; the terminal example is illustrative. Live control and observation require the integration workspace and running simulator.
 
 ## References
 

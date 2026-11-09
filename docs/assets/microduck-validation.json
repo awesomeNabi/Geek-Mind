@@ -32,6 +32,26 @@
     "browser_javascript_errors": 0,
     "screenshot": "microduck-interactive-preview.png"
   },
+  "replay": {
+    "gif": "microduck-agent-demo.gif",
+    "poster": "microduck-agent-poster.png",
+    "width": 960,
+    "height": 944,
+    "frames": 68,
+    "duration_seconds": 13.6,
+    "speed": 1,
+    "fps": 5,
+    "unique_frames": 51,
+    "bytes": 2735704,
+    "sha256": "61feb3b41734116de353a97d0059cb3666be60714d482c3c6f4d8e1929f96b22",
+    "recorded_at": "2026-11-09",
+    "entrypoint": "bash run.sh chat --plain --no-browser, then /demo",
+    "planning": "Fixed five-action plan; actual MAGIC execution and MuJoCo simulation, no LLM call.",
+    "state": "SUCCEEDED",
+    "actions": 5,
+    "presentation": "Local filesystem paths replaced in event text before browser capture; camera images and execution data unmodified.",
+    "timing": "Frame timestamps retained at 5 FPS; replay runs at original speed."
+  },
   "navigation": {
     "verified_at": "2026-11-08",
     "goal": "North corridor",
@@ -44,7 +64,7 @@
     "Learned skills use Trigger services and cannot be interrupted mid-motion.",
     "Object recognition, grasping, kicking, and rolling task outcomes are unverified.",
     "Wall transparency affects only the third-person renderer; collisions and the head camera are unchanged.",
-    "The public website shows a recorded screenshot, not a live server feed."
+    "The public website shows a recorded GIF of the fixed /demo sequence, not a live server feed."
   ],
   "provenance": {
     "workspace": "magic_microduck",

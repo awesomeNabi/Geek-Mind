@@ -56,7 +56,9 @@ Deployment is hardware-specific. See [Ubuntu 22.04 + ROS 2 Humble deployment](HU
 
 MAGIC controls the Microduck robot in a simulated apartment through its existing **TaskPlanner → TaskRuntime → ExecutionGateway → MCP** path. The ROS 2 bridge connects MuJoCo, learned motion policies, and Nav2. A continuous terminal session accepts natural-language goals and displays planning, action status, and receipts; a read-only browser panel shows the robot body and head camera alongside the current task.
 
-![Microduck simulation operator view](./docs/assets/microduck-interactive-preview.png)
+![Microduck simulation replay: robot motion, dual camera views, and agent status](./docs/assets/microduck-agent-demo.gif)
+
+*13.6-second replay at original speed: walk → sit → stand → look → snapshot. Recorded from the actual simulator and MAGIC runtime using the fixed `/demo` plan.*
 
 In the prepared `magic_microduck` workspace, start with `bash run.sh chat` and open `http://127.0.0.1:8780`. A real-model instruction—“向左转20度，然后坐下，再站起来”—completed all three actions. The fixed five-action demo and 23 automated checks also passed (project-reported, 2026-11-09). These are simulation integration checks; physical Microduck operation is not yet validated.
 
