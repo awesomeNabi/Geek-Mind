@@ -1,5 +1,8 @@
 /** English is the source copy; code, recorded commands and product names stay verbatim. */
+import { microduckChinese } from './microduck-translations';
+
 export const chinese: Record<string, string> = {
+  ...microduckChinese,
   'Language': '语言',
   'Skip to content': '跳转到正文',
   'Geek Mind home': 'Geek Mind 首页',

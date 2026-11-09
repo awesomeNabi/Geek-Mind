@@ -17,6 +17,8 @@ const files = [
   ['optimus-agent-demo.gif', 'optimus-agent-demo.gif'],
   ['optimus-agent-poster.png', 'optimus-agent-poster.png'],
   ['optimus-benchmark.json', 'optimus-benchmark.json'],
+  ['microduck-interactive-preview.png', 'microduck-interactive-preview.png'],
+  ['microduck-validation.json', 'microduck-validation.json'],
   ['architecture-src/unitree-go2.png', 'unitree-go2.png'],
   ['architecture-src/arx-x5.png', 'arx-x5.png'],
   ['architecture-src/ATTRIBUTION.md', 'ATTRIBUTION.md'],

@@ -1,0 +1,58 @@
+{
+  "verified_at": "2026-11-09",
+  "scope": "Project-reported integration checks on one server, using the actual MAGIC runtime and Microduck MuJoCo simulation; not a benchmark success rate or hardware validation.",
+  "automated_tests": { "passed": 23 },
+  "demo": {
+    "entrypoint": "bash run.sh chat, then /demo",
+    "planning": "Fixed plan; no model call. Natural-language planning was validated in separate runs.",
+    "state": "SUCCEEDED",
+    "actions": [
+      { "id": "walk", "label": "Walk 15 cm", "status": "SUCCEEDED", "evidence": "Bounded forward motion completed." },
+      { "id": "sit", "label": "Sit", "status": "SUCCEEDED", "evidence": "Learned sit policy completed." },
+      { "id": "stand", "label": "Stand", "status": "SUCCEEDED", "evidence": "Rise returned the robot to the walking policy." },
+      { "id": "look", "label": "Look left", "status": "SUCCEEDED", "evidence": "Head command dispatched; final joint pose was not verified." },
+      { "id": "photo", "label": "Snapshot", "status": "SUCCEEDED", "evidence": "Head-camera image saved; not an object-recognition result." }
+    ]
+  },
+  "natural_language": {
+    "goal": "向左转20度，然后坐下，再站起来",
+    "translation": "Turn left 20 degrees, sit down, then stand up.",
+    "planner": "MAGIC TaskPlanner / configured model",
+    "state": "SUCCEEDED",
+    "actions": ["turn", "do_skill:sit", "do_skill:stand"],
+    "cancellation": "Stopping a two-meter walk cancelled walking and prevented the following sit action. Cancelling during planning dispatched no actions."
+  },
+  "viewer": {
+    "views": ["Third-person follow view", "Head camera"],
+    "frame_size": [640, 360],
+    "observation_window_seconds_approx": 5,
+    "distinct_frames": { "head": 15, "follow": 15 },
+    "max_frame_age_seconds": { "head": 0.569, "follow": 0.454 },
+    "continuous_preview_snapshots": 0,
+    "browser_javascript_errors": 0,
+    "screenshot": "microduck-interactive-preview.png"
+  },
+  "navigation": {
+    "verified_at": "2026-11-08",
+    "goal": "North corridor",
+    "arrival_error_m_approx": 0.229,
+    "arrival_tolerance_m": 0.3,
+    "scope": "One arrival and kitchen-route cancellation verified; not all room routes."
+  },
+  "boundaries": [
+    "Simulation only; no physical Microduck connected.",
+    "Learned skills use Trigger services and cannot be interrupted mid-motion.",
+    "Object recognition, grasping, kicking, and rolling task outcomes are unverified.",
+    "Wall transparency affects only the third-person renderer; collisions and the head camera are unchanged.",
+    "The public website shows a recorded screenshot, not a live server feed."
+  ],
+  "provenance": {
+    "workspace": "magic_microduck",
+    "validation_notes": "VALIDATION.md",
+    "console_result": ".runtime/console-final/result.json",
+    "screenshot": "docs/interactive-preview.png",
+    "live_model_session": ".runtime/interactive-check/console-fc34465b/",
+    "navigation_result": ".runtime/smoke-07e204eb/result.json",
+    "note": "Public summary transcribed from local validation records. Private runtime logs, model credentials, and databases are not distributed with the website."
+  }
+}

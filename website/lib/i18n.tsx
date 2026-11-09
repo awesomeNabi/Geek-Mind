@@ -17,8 +17,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       ? 'Geek Mind — 一个智能体运行时，多种具身形态。'
       : 'Geek Mind — One Agent Runtime. Multiple Embodiments.';
     document.querySelector('meta[name="description"]')?.setAttribute('content', locale === 'zh-CN'
-      ? 'Geek Mind 通过共享的具身智能体运行时，连接多模态感知、任务规划与物理执行，适配 Unitree Go2 和 ARX X5。'
-      : 'Geek Mind connects multimodal perception, task planning, and physical execution across Unitree Go2 and ARX X5 through a shared embodied-agent runtime.');
+      ? 'Geek Mind 通过共享的具身智能体运行时，连接多模态感知、任务规划与执行，适配 Unitree Go2、ARX X5 和 Microduck 仿真。'
+      : 'Geek Mind connects multimodal perception, task planning, and execution across Unitree Go2, ARX X5, and Microduck simulation through a shared embodied-agent runtime.');
     try { localStorage.setItem(storageKey, locale); } catch { /* Switching still works when storage is unavailable. */ }
   }, [locale]);
   const value = useMemo(() => ({ locale, setLocale, t: (text: string) => locale === 'zh-CN' ? chinese[text] ?? text : text }), [locale]);
