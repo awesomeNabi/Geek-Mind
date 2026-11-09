@@ -1,0 +1,8 @@
+{
+  "mcp_servers": [{
+    "name": "microduck",
+    "transport": "stdio",
+    "command": "bash",
+    "args": ["/absolute/path/to/Geek-Mind/integrations/microduck/run.sh", "mcp"]
+  }]
+}

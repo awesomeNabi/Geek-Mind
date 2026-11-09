@@ -48,7 +48,7 @@ The diagram summarizes four stages in a closed loop: Perception, Cortex LLM, MCP
 | Unitree Go2 | Voice interaction, robot state, D435 vision, native or Mid360 navigation |
 | ARX X5 | RGB-D perception, grasp planning, arm/gripper execution, status feedback |
 | Go2 + ARX X5 | Mobile manipulation with coordinated navigation, grasping, and delivery tasks |
-| Microduck / simulation | Natural-language motion and navigation, dual camera views, live task status through a separate integration workspace |
+| Microduck / simulation | Natural-language motion and navigation, dual camera views, live task status through the `integrations/microduck` module |
 
 Deployment is hardware-specific. See [Ubuntu 22.04 + ROS 2 Humble deployment](HUMBLE_SETUP.md) for the Go2 + Mid360 stack, or [Go2 + ARX startup](STARTUP.md) for the combined robot workflow. Real-robot operation must be supervised with a working emergency stop and a clear operating area.
 
@@ -60,9 +60,9 @@ MAGIC controls the Microduck robot in a simulated apartment through its existing
 
 *13.6-second replay at original speed: walk → sit → stand → look → snapshot. Recorded from the actual simulator and MAGIC runtime using the fixed `/demo` plan.*
 
-In the prepared `magic_microduck` workspace, start with `bash run.sh chat` and open `http://127.0.0.1:8780`. A real-model instruction—“向左转20度，然后坐下，再站起来”—completed all three actions. The fixed five-action demo and 23 automated checks also passed (project-reported, 2026-11-09). These are simulation integration checks; physical Microduck operation is not yet validated.
+With MAGIC and the simulator environments prepared, run `cd integrations/microduck` from this repository, then `bash run.sh chat` and open `http://127.0.0.1:8780`. A real-model instruction—“向左转20度，然后坐下，再站起来”—completed all three actions. The fixed five-action demo and 23 automated checks also passed (project-reported, 2026-11-09). These are simulation integration checks; physical Microduck operation is not yet validated.
 
-See the [Microduck integration guide](MICRODUCK.md) for workspace requirements, startup, tools, results, and cancellation boundaries, or [explore the website section](https://awesomenabi.github.io/Geek-Mind/#microduck). The adapter resides in a separate local workspace; cloning this repository alone does not install it.
+See the [Microduck integration guide](MICRODUCK.md) for workspace requirements, startup, tools, results, and cancellation boundaries, or [explore the website section](https://awesomenabi.github.io/Geek-Mind/#microduck). The adapter source, launcher, live viewer, configuration templates, and tests are included in [`integrations/microduck/`](integrations/microduck/). Its [setup guide](integrations/microduck/README.md) describes the external MAGIC and simulator environments.
 
 ## Benchmark Evaluation
 

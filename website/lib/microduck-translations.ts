@@ -67,6 +67,7 @@ export const microduckChinese: Record<string, string> = {
   'Snapshot': '拍照',
   'Head-camera image saved; not an object-recognition result.': '已保存头部相机图像；不代表物体识别结果。',
   'Simulation validation only. A north-corridor navigation goal was reached; all-room coverage, object recognition, and physical hardware remain unverified. Learned sit/stand skills finish their current motion before cancellation completes. The look action confirms dispatch, not the final head pose.': '仅完成仿真验收。已到达北侧走廊导航目标；尚未验证全部房间路线、物体识别与实体硬件。坐下和站立策略需要完成当前动作后才能结束取消流程。转头动作仅确认指令发送，不确认最终头部姿态。',
+  'Microduck source code': 'Microduck 接入源码',
   'Microduck integration guide': 'Microduck 接入指南',
   'Validation summary': '验收摘要',
   'Download Microduck GIF': '下载 Microduck GIF',

@@ -87,7 +87,7 @@ export default function MicroduckSimulation() {
         </div>
         <div className="microduck-terminal">
           <div className="media-topline"><span><Terminal size={14} />{t("TERMINAL / EXAMPLE SESSION")}</span></div>
-          <pre aria-label={t("Start the Microduck console and give a Chinese natural-language command")}><code><span className="microduck-prompt">$ </span>cd magic_microduck{'\n'}<span className="microduck-prompt">$ </span>bash run.sh chat{'\n\n'}<span className="microduck-terminal-note">{t("# Browser: http://127.0.0.1:8780")}</span>{'\n'}<span className="microduck-prompt">› </span><span lang="zh-CN">向左转20度，然后坐下，再站起来</span>{'\n\n'}turn 20°   <span className="microduck-terminal-success">SUCCEEDED</span>{'\n'}sit        <span className="microduck-terminal-success">SUCCEEDED</span>{'\n'}stand      <span className="microduck-terminal-success">SUCCEEDED</span>{'\n\n'}<span className="microduck-terminal-note">/state   /stop   /quit</span></code></pre>
+          <pre aria-label={t("Start the Microduck console and give a Chinese natural-language command")}><code><span className="microduck-prompt">$ </span>cd integrations/microduck{'\n'}<span className="microduck-prompt">$ </span>bash run.sh chat{'\n\n'}<span className="microduck-terminal-note">{t("# Browser: http://127.0.0.1:8780")}</span>{'\n'}<span className="microduck-prompt">› </span><span lang="zh-CN">向左转20度，然后坐下，再站起来</span>{'\n\n'}turn 20°   <span className="microduck-terminal-success">SUCCEEDED</span>{'\n'}sit        <span className="microduck-terminal-success">SUCCEEDED</span>{'\n'}stand      <span className="microduck-terminal-success">SUCCEEDED</span>{'\n\n'}<span className="microduck-terminal-note">/state   /stop   /quit</span></code></pre>
           <p>{t("Run in the prepared integration workspace. Enter commands in the terminal; the browser is a read-only viewer.")}</p>
         </div>
       </div>
@@ -114,6 +114,7 @@ export default function MicroduckSimulation() {
       </details>
       <div className="benchmark-links">
         <a href={`${repo}/blob/main/MICRODUCK.md`} target="_blank" rel="noopener noreferrer" className="inline-link">{t("Microduck integration guide")} <ArrowUpRight size={16} /></a>
+        <a href={`${repo}/tree/main/integrations/microduck`} target="_blank" rel="noopener noreferrer" className="inline-link">{t("Microduck source code")} <ArrowUpRight size={16} /></a>
         <a href="./media/microduck-validation.json" target="_blank" rel="noopener noreferrer" className="inline-link">{t("Validation summary")} <ArrowUpRight size={16} /></a>
         <a href={`./media/${replay.gif}`} download className="inline-link">{t("Download Microduck GIF")} <ArrowUpRight size={16} /></a>
       </div>

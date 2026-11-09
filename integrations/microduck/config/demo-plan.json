@@ -1,0 +1,10 @@
+{
+  "goal": "向前走15厘米，然后坐下、站起来，最后向左看并拍照",
+  "nodes": [
+    {"node_id": "walk", "skill": "walk", "arguments": {"distance_m": 0.15}},
+    {"node_id": "sit", "skill": "do_skill", "arguments": {"skill": "sit"}},
+    {"node_id": "stand", "skill": "do_skill", "arguments": {"skill": "stand"}},
+    {"node_id": "look", "skill": "look", "arguments": {"direction": "left"}},
+    {"node_id": "photo", "skill": "snapshot", "arguments": {}}
+  ]
+}

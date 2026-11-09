@@ -1,0 +1,15 @@
+[project]
+name = "magic-microduck"
+version = "0.1.0"
+description = "MAGIC task execution and MCP bridge for the Microduck ROS 2 simulator"
+requires-python = ">=3.11"
+# Reuses the prepared MAGIC and ROS/Pixi environments; see README.md.
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 110

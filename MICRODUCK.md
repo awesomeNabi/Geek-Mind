@@ -28,27 +28,28 @@ Task plan + execution events
     → interactive terminal + browser panel + local session records
 ```
 
-The integration reuses MAGIC's planner and execution kernel. It lives in a separate `magic_microduck` workspace alongside `MAGIC` and `microduck_ros2`, without modifying their source for the adapter. MAGIC runs in Python 3.11; ROS 2 and MuJoCo run in the Microduck project's Python 3.12 / Pixi environment. Local HTTP separates the two Python environments, while MCP presents typed tools to the task runtime.
+The integration reuses MAGIC's planner and execution kernel. Its source is included in [`integrations/microduck/`](integrations/microduck/), which reuses the external `MAGIC` and `microduck_ros2` environments without modifying their source for the adapter. MAGIC runs in Python 3.11; ROS 2 and MuJoCo run in the Microduck project's Python 3.12 / Pixi environment. Local HTTP separates the two Python environments, while MCP presents typed tools to the task runtime.
 
 The observer reads the actual simulation scene, object configuration, and joint state. Walls become transparent only in the third-person renderer so the body stays visible; physical collisions and the head camera retain the original scene.
 
 ## Start an interactive session
 
-These commands apply to the **prepared integration workspace** used for validation:
+The adapter is shipped in this repository. With the two external environments prepared, use this layout:
 
 ```text
 work/
 ├── MAGIC/               # Existing MAGIC environment and model configuration
 ├── microduck_ros2/      # Existing ROS 2 / Pixi simulation environment
-└── magic_microduck/     # Integration, launcher, terminal, and viewer
+└── Geek-Mind/
+    └── integrations/microduck/  # Integration, launcher, terminal, viewer, and tests
 ```
 
-The adapter currently resides in this separate workspace. Cloning the Geek-Mind website repository alone does not install it or prepare the simulator. The integration's own `README.md`, `.env.example`, and `run.sh` describe its environment and configuration.
+Cloning Geek-Mind now includes the adapter source. The external MAGIC Python environment and Microduck Pixi/ROS environment still need to be prepared. See the module's [README](integrations/microduck/README.md), [model configuration template](integrations/microduck/.env.example), and [launcher](integrations/microduck/run.sh). The bundled headless helper removes the need to create a custom `server.sh` in the simulator checkout. Export `MAGIC_ROOT` and `MICRODUCK_ROOT` when using another layout.
 
 From `work/`:
 
 ```bash
-cd magic_microduck
+cd Geek-Mind/integrations/microduck
 bash run.sh chat
 ```
 
@@ -106,7 +107,7 @@ Seven MCP tools connect the task runtime to the bridge:
 
 Actions cover `walk`, `turn`, `navigate`, `navigate_to`, `do_skill`, `look`, and `snapshot`. The runtime serializes robot control, validates parameters, and persists action receipts. Reusing a command ID with the same parameters returns the existing receipt instead of executing it again. Failure or cancellation prevents dependent actions from starting.
 
-Sessions save plans, task results, and event records under `magic_microduck/.runtime/console-*/`. Continuous video uses an in-memory frame cache and MJPEG streams; it does not save a screenshot on every update.
+Sessions save plans, task results, and event records under `integrations/microduck/.runtime/console-*/`. Continuous video uses an in-memory frame cache and MJPEG streams; it does not save a screenshot on every update.
 
 ## Verified behavior
 
@@ -135,6 +136,7 @@ These are checks of this integration on one prepared server, not a benchmark suc
 
 ## References
 
+- [Adapter source and setup](integrations/microduck/README.md)
 - [Microduck ROS 2 simulation](https://github.com/Arjunros/microduck_ros2)
 - [Pollen Robotics Microduck RL](https://github.com/pollen-robotics/microduck_rl)
 - [Public validation summary](./docs/assets/microduck-validation.json)

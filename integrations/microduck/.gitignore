@@ -1,0 +1,15 @@
+.runtime/
+.assets/
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+*.sqlite3*
+*.db*
+*.onnx
+*.log
