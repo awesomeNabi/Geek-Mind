@@ -1,0 +1,1824 @@
+{
+  "schema_version": 1,
+  "source": {
+    "session": "console-e3a48a62",
+    "date": "2026-11-10",
+    "timezone": "Asia/Shanghai",
+    "event_ids": [
+      6,
+      54
+    ],
+    "event_log_sha256": "384d1bb65f53bca7092e0cd77188e4b0abdd020ae1c9e8ddaa9fe53c817e944d",
+    "model": "deepseek-flash",
+    "scope": "One natural-language task only; excludes later console commands. Filesystem paths and credentials are not published."
+  },
+  "goal": {
+    "original": "去卫生间拍个照，然后再去厨房转个圈坐下",
+    "english": "Go to the bathroom and take a photo. Then go to the kitchen, turn a full circle, and sit down."
+  },
+  "status": "SUCCEEDED",
+  "elapsed_seconds": 226.07,
+  "metrics": {
+    "model_calls": 4,
+    "replans": 3,
+    "actions": 10,
+    "successful_actions": 7,
+    "failed_actions": 3
+  },
+  "budgets": {
+    "actions": 12,
+    "replans": 3,
+    "seconds": 300
+  },
+  "revisions": [
+    {
+      "number": 1,
+      "at": 5.876,
+      "start_event_id": 8,
+      "end_event_id": 20,
+      "kept_count": 0,
+      "nodes": [
+        {
+          "id": "n1_navigate_bathroom",
+          "skill": "navigate",
+          "arguments": {
+            "place": "bathroom"
+          },
+          "depends_on": [],
+          "label": "Go to the bathroom",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "n2_photo_bathroom",
+          "skill": "snapshot",
+          "arguments": {},
+          "depends_on": [
+            "n1_navigate_bathroom"
+          ],
+          "label": "Take a photo",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "n3_navigate_kitchen",
+          "skill": "navigate",
+          "arguments": {
+            "place": "kitchen"
+          },
+          "depends_on": [
+            "n2_photo_bathroom"
+          ],
+          "label": "Go to the kitchen",
+          "kept": false,
+          "final_status": "FAILED"
+        },
+        {
+          "id": "n4_spin_half_a",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "n3_navigate_kitchen"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "PENDING"
+        },
+        {
+          "id": "n5_spin_half_b",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "n4_spin_half_a"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "PENDING"
+        },
+        {
+          "id": "n6_sit_kitchen",
+          "skill": "do_skill",
+          "arguments": {
+            "skill": "sit"
+          },
+          "depends_on": [
+            "n5_spin_half_b"
+          ],
+          "label": "Sit down",
+          "kept": false,
+          "final_status": "PENDING"
+        }
+      ],
+      "input": {
+        "pose": {
+          "x": 0.0003759619064754737,
+          "y": -0.00027002575947592444,
+          "yaw_degrees": 0.5039964784339377
+        },
+        "remaining_actions": 12,
+        "remaining_seconds": 300,
+        "previous_results": []
+      },
+      "model_plan": {
+        "goal": "去卫生间拍个照，然后再去厨房转个圈坐下",
+        "nodes": [
+          {
+            "node_id": "n1_navigate_bathroom",
+            "skill": "navigate",
+            "arguments": {
+              "place": "bathroom"
+            },
+            "depends_on": [],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n2_photo_bathroom",
+            "skill": "snapshot",
+            "arguments": {},
+            "depends_on": [
+              "n1_navigate_bathroom"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n3_navigate_kitchen",
+            "skill": "navigate",
+            "arguments": {
+              "place": "kitchen"
+            },
+            "depends_on": [
+              "n2_photo_bathroom"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n4_spin_half_a",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "n3_navigate_kitchen"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n5_spin_half_b",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "n4_spin_half_a"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n6_sit_kitchen",
+            "skill": "do_skill",
+            "arguments": {
+              "skill": "sit"
+            },
+            "depends_on": [
+              "n5_spin_half_b"
+            ],
+            "verifier": "microduck_observation"
+          }
+        ]
+      }
+    },
+    {
+      "number": 2,
+      "at": 122.337,
+      "start_event_id": 22,
+      "end_event_id": 27,
+      "kept_count": 2,
+      "nodes": [
+        {
+          "id": "n1_navigate_bathroom",
+          "skill": "navigate",
+          "arguments": {
+            "place": "bathroom"
+          },
+          "depends_on": [],
+          "label": "Go to the bathroom",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "n2_photo_bathroom",
+          "skill": "snapshot",
+          "arguments": {},
+          "depends_on": [
+            "n1_navigate_bathroom"
+          ],
+          "label": "Take a photo",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r2_1_n3_retry_navigate_kitchen",
+          "skill": "navigate",
+          "arguments": {
+            "place": "kitchen"
+          },
+          "depends_on": [
+            "n2_photo_bathroom"
+          ],
+          "label": "Go to the kitchen",
+          "kept": false,
+          "final_status": "FAILED"
+        },
+        {
+          "id": "r2_2_n4_spin_half_a",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "r2_1_n3_retry_navigate_kitchen"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "PENDING"
+        },
+        {
+          "id": "r2_3_n5_spin_half_b",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "r2_2_n4_spin_half_a"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "PENDING"
+        },
+        {
+          "id": "r2_4_n6_sit_kitchen",
+          "skill": "do_skill",
+          "arguments": {
+            "skill": "sit"
+          },
+          "depends_on": [
+            "r2_3_n5_spin_half_b"
+          ],
+          "label": "Sit down",
+          "kept": false,
+          "final_status": "PENDING"
+        }
+      ],
+      "input": {
+        "pose": {
+          "x": -2.683608105664686,
+          "y": 0.29252463844386356,
+          "yaw_degrees": 144.8894333992867
+        },
+        "remaining_actions": 9,
+        "remaining_seconds": 187.114,
+        "previous_results": [
+          {
+            "skill": "navigate",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "snapshot",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "navigate",
+            "status": "FAILED",
+            "error_code": "navigation_failed"
+          }
+        ]
+      },
+      "model_plan": {
+        "goal": "去卫生间拍个照，然后再去厨房转个圈坐下",
+        "nodes": [
+          {
+            "node_id": "n3_retry_navigate_kitchen",
+            "skill": "navigate",
+            "arguments": {
+              "place": "kitchen"
+            },
+            "depends_on": [],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n4_spin_half_a",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "n3_retry_navigate_kitchen"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n5_spin_half_b",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "n4_spin_half_a"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "n6_sit_kitchen",
+            "skill": "do_skill",
+            "arguments": {
+              "skill": "sit"
+            },
+            "depends_on": [
+              "n5_spin_half_b"
+            ],
+            "verifier": "microduck_observation"
+          }
+        ]
+      }
+    },
+    {
+      "number": 3,
+      "at": 170.491,
+      "start_event_id": 29,
+      "end_event_id": 37,
+      "kept_count": 2,
+      "nodes": [
+        {
+          "id": "n1_navigate_bathroom",
+          "skill": "navigate",
+          "arguments": {
+            "place": "bathroom"
+          },
+          "depends_on": [],
+          "label": "Go to the bathroom",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "n2_photo_bathroom",
+          "skill": "snapshot",
+          "arguments": {},
+          "depends_on": [
+            "n1_navigate_bathroom"
+          ],
+          "label": "Take a photo",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r3_1_rr1_face_kitchen",
+          "skill": "turn",
+          "arguments": {
+            "degrees": -56
+          },
+          "depends_on": [
+            "n2_photo_bathroom"
+          ],
+          "label": "Turn 56° right",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r3_2_rr2_walk_to_kitchen",
+          "skill": "walk",
+          "arguments": {
+            "distance_m": 1.5
+          },
+          "depends_on": [
+            "r3_1_rr1_face_kitchen"
+          ],
+          "label": "Walk 1.5 m",
+          "kept": false,
+          "final_status": "FAILED"
+        },
+        {
+          "id": "r3_3_rr3_spin_half_a",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "r3_2_rr2_walk_to_kitchen"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "PENDING"
+        },
+        {
+          "id": "r3_4_rr4_spin_half_b",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "r3_3_rr3_spin_half_a"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "PENDING"
+        },
+        {
+          "id": "r3_5_rr5_sit_kitchen",
+          "skill": "do_skill",
+          "arguments": {
+            "skill": "sit"
+          },
+          "depends_on": [
+            "r3_4_rr4_spin_half_b"
+          ],
+          "label": "Sit down",
+          "kept": false,
+          "final_status": "PENDING"
+        }
+      ],
+      "input": {
+        "pose": {
+          "x": -2.6939285305296803,
+          "y": 0.31195529980864856,
+          "yaw_degrees": 144.0540849831244
+        },
+        "remaining_actions": 8,
+        "remaining_seconds": 156.213,
+        "previous_results": [
+          {
+            "skill": "navigate",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "snapshot",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "navigate",
+            "status": "FAILED",
+            "error_code": "navigation_failed"
+          },
+          {
+            "skill": "navigate",
+            "status": "FAILED",
+            "error_code": "navigation_failed"
+          }
+        ]
+      },
+      "model_plan": {
+        "goal": "去卫生间拍个照，然后再去厨房转个圈坐下",
+        "nodes": [
+          {
+            "node_id": "rr1_face_kitchen",
+            "skill": "turn",
+            "arguments": {
+              "degrees": -56
+            },
+            "depends_on": [],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "rr2_walk_to_kitchen",
+            "skill": "walk",
+            "arguments": {
+              "distance_m": 1.5
+            },
+            "depends_on": [
+              "rr1_face_kitchen"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "rr3_spin_half_a",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "rr2_walk_to_kitchen"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "rr4_spin_half_b",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "rr3_spin_half_a"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "rr5_sit_kitchen",
+            "skill": "do_skill",
+            "arguments": {
+              "skill": "sit"
+            },
+            "depends_on": [
+              "rr4_spin_half_b"
+            ],
+            "verifier": "microduck_observation"
+          }
+        ]
+      }
+    },
+    {
+      "number": 4,
+      "at": 200.536,
+      "start_event_id": 39,
+      "end_event_id": 53,
+      "kept_count": 3,
+      "nodes": [
+        {
+          "id": "n1_navigate_bathroom",
+          "skill": "navigate",
+          "arguments": {
+            "place": "bathroom"
+          },
+          "depends_on": [],
+          "label": "Go to the bathroom",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "n2_photo_bathroom",
+          "skill": "snapshot",
+          "arguments": {},
+          "depends_on": [
+            "n1_navigate_bathroom"
+          ],
+          "label": "Take a photo",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r3_1_rr1_face_kitchen",
+          "skill": "turn",
+          "arguments": {
+            "degrees": -56
+          },
+          "depends_on": [
+            "n2_photo_bathroom"
+          ],
+          "label": "Turn 56° right",
+          "kept": true,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r4_1_recovery_1_navigate_kitchen",
+          "skill": "navigate",
+          "arguments": {
+            "place": "kitchen"
+          },
+          "depends_on": [
+            "r3_1_rr1_face_kitchen"
+          ],
+          "label": "Go to the kitchen",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r4_2_recovery_2_spin_half_a",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "r4_1_recovery_1_navigate_kitchen"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r4_3_recovery_3_spin_half_b",
+          "skill": "turn",
+          "arguments": {
+            "degrees": 180
+          },
+          "depends_on": [
+            "r4_2_recovery_2_spin_half_a"
+          ],
+          "label": "Turn 180°",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        },
+        {
+          "id": "r4_4_recovery_4_sit_kitchen",
+          "skill": "do_skill",
+          "arguments": {
+            "skill": "sit"
+          },
+          "depends_on": [
+            "r4_3_recovery_3_spin_half_b"
+          ],
+          "label": "Sit down",
+          "kept": false,
+          "final_status": "SUCCEEDED"
+        }
+      ],
+      "input": {
+        "pose": {
+          "x": -3.6871032710391143,
+          "y": 0.8200304127169742,
+          "yaw_degrees": -148.37447096507958
+        },
+        "remaining_actions": 6,
+        "remaining_seconds": 112.115,
+        "previous_results": [
+          {
+            "skill": "navigate",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "snapshot",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "navigate",
+            "status": "FAILED",
+            "error_code": "navigation_failed"
+          },
+          {
+            "skill": "navigate",
+            "status": "FAILED",
+            "error_code": "navigation_failed"
+          },
+          {
+            "skill": "turn",
+            "status": "SUCCEEDED",
+            "error_code": null
+          },
+          {
+            "skill": "walk",
+            "status": "FAILED",
+            "error_code": "motion_timeout"
+          }
+        ]
+      },
+      "model_plan": {
+        "goal": "去卫生间拍个照，然后再去厨房转个圈坐下",
+        "nodes": [
+          {
+            "node_id": "recovery_1_navigate_kitchen",
+            "skill": "navigate",
+            "arguments": {
+              "place": "kitchen"
+            },
+            "depends_on": [],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "recovery_2_spin_half_a",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "recovery_1_navigate_kitchen"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "recovery_3_spin_half_b",
+            "skill": "turn",
+            "arguments": {
+              "degrees": 180
+            },
+            "depends_on": [
+              "recovery_2_spin_half_a"
+            ],
+            "verifier": "microduck_observation"
+          },
+          {
+            "node_id": "recovery_4_sit_kitchen",
+            "skill": "do_skill",
+            "arguments": {
+              "skill": "sit"
+            },
+            "depends_on": [
+              "recovery_3_spin_half_b"
+            ],
+            "verifier": "microduck_observation"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": 6,
+      "at": 0.0,
+      "kind": "goal",
+      "revision": 1,
+      "label": "Instruction received"
+    },
+    {
+      "id": 7,
+      "at": 0.0,
+      "kind": "phase",
+      "revision": 1,
+      "label": "Creating the initial plan",
+      "status": "PLANNING"
+    },
+    {
+      "id": 8,
+      "at": 5.876,
+      "kind": "plan",
+      "revision": 1,
+      "label": "Initial plan ready"
+    },
+    {
+      "id": 11,
+      "at": 5.909,
+      "kind": "action",
+      "revision": 1,
+      "node_id": "n1_navigate_bathroom",
+      "skill": "navigate",
+      "arguments": {
+        "place": "bathroom"
+      },
+      "label": "Go to the bathroom",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 12,
+      "at": 5.912,
+      "kind": "task",
+      "revision": 1,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "BLOCKED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "PENDING"
+        ],
+        [
+          "n3_navigate_kitchen",
+          "PENDING"
+        ],
+        [
+          "n4_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "n5_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "n6_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 13,
+      "at": 44.268,
+      "kind": "action",
+      "revision": 1,
+      "node_id": "n1_navigate_bathroom",
+      "skill": "navigate",
+      "arguments": {
+        "place": "bathroom"
+      },
+      "label": "Go to the bathroom",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 14,
+      "at": 44.288,
+      "kind": "action",
+      "revision": 1,
+      "node_id": "n2_photo_bathroom",
+      "skill": "snapshot",
+      "arguments": {},
+      "label": "Take a photo",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 15,
+      "at": 44.29,
+      "kind": "task",
+      "revision": 1,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "BLOCKED"
+        ],
+        [
+          "n3_navigate_kitchen",
+          "PENDING"
+        ],
+        [
+          "n4_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "n5_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "n6_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 16,
+      "at": 44.548,
+      "kind": "action",
+      "revision": 1,
+      "node_id": "n2_photo_bathroom",
+      "skill": "snapshot",
+      "arguments": {},
+      "label": "Take a photo",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 17,
+      "at": 44.573,
+      "kind": "action",
+      "revision": 1,
+      "node_id": "n3_navigate_kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "label": "Go to the kitchen",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 18,
+      "at": 44.575,
+      "kind": "task",
+      "revision": 1,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n3_navigate_kitchen",
+          "BLOCKED"
+        ],
+        [
+          "n4_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "n5_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "n6_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 19,
+      "at": 118.774,
+      "kind": "action",
+      "revision": 1,
+      "node_id": "n3_navigate_kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "label": "Go to the kitchen",
+      "status": "FAILED",
+      "error_code": "navigation_failed"
+    },
+    {
+      "id": 20,
+      "at": 118.778,
+      "kind": "task",
+      "revision": 1,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n3_navigate_kitchen",
+          "FAILED"
+        ],
+        [
+          "n4_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "n5_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "n6_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "WAITING_FOR_INPUT",
+      "label": "Waiting for a new plan"
+    },
+    {
+      "id": 21,
+      "at": 118.779,
+      "kind": "phase",
+      "revision": 1,
+      "label": "Failure feedback → new plan",
+      "status": "PLANNING"
+    },
+    {
+      "id": 22,
+      "at": 122.337,
+      "kind": "plan",
+      "revision": 2,
+      "label": "Revised plan ready"
+    },
+    {
+      "id": 24,
+      "at": 122.351,
+      "kind": "action",
+      "revision": 2,
+      "node_id": "r2_1_n3_retry_navigate_kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "label": "Go to the kitchen",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 25,
+      "at": 122.353,
+      "kind": "task",
+      "revision": 2,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r2_1_n3_retry_navigate_kitchen",
+          "BLOCKED"
+        ],
+        [
+          "r2_2_n4_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "r2_3_n5_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r2_4_n6_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 26,
+      "at": 149.674,
+      "kind": "action",
+      "revision": 2,
+      "node_id": "r2_1_n3_retry_navigate_kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "label": "Go to the kitchen",
+      "status": "FAILED",
+      "error_code": "navigation_failed"
+    },
+    {
+      "id": 27,
+      "at": 149.679,
+      "kind": "task",
+      "revision": 2,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r2_1_n3_retry_navigate_kitchen",
+          "FAILED"
+        ],
+        [
+          "r2_2_n4_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "r2_3_n5_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r2_4_n6_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "WAITING_FOR_INPUT",
+      "label": "Waiting for a new plan"
+    },
+    {
+      "id": 28,
+      "at": 149.679,
+      "kind": "phase",
+      "revision": 2,
+      "label": "Failure feedback → new plan",
+      "status": "PLANNING"
+    },
+    {
+      "id": 29,
+      "at": 170.491,
+      "kind": "plan",
+      "revision": 3,
+      "label": "Revised plan ready"
+    },
+    {
+      "id": 31,
+      "at": 170.506,
+      "kind": "action",
+      "revision": 3,
+      "node_id": "r3_1_rr1_face_kitchen",
+      "skill": "turn",
+      "arguments": {
+        "degrees": -56
+      },
+      "label": "Turn 56° right",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 32,
+      "at": 170.508,
+      "kind": "task",
+      "revision": 3,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "BLOCKED"
+        ],
+        [
+          "r3_2_rr2_walk_to_kitchen",
+          "PENDING"
+        ],
+        [
+          "r3_3_rr3_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "r3_4_rr4_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r3_5_rr5_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 33,
+      "at": 172.435,
+      "kind": "action",
+      "revision": 3,
+      "node_id": "r3_1_rr1_face_kitchen",
+      "skill": "turn",
+      "arguments": {
+        "degrees": -56
+      },
+      "label": "Turn 56° right",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 34,
+      "at": 172.454,
+      "kind": "action",
+      "revision": 3,
+      "node_id": "r3_2_rr2_walk_to_kitchen",
+      "skill": "walk",
+      "arguments": {
+        "distance_m": 1.5
+      },
+      "label": "Walk 1.5 m",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 35,
+      "at": 172.456,
+      "kind": "task",
+      "revision": 3,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_2_rr2_walk_to_kitchen",
+          "BLOCKED"
+        ],
+        [
+          "r3_3_rr3_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "r3_4_rr4_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r3_5_rr5_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 36,
+      "at": 193.773,
+      "kind": "action",
+      "revision": 3,
+      "node_id": "r3_2_rr2_walk_to_kitchen",
+      "skill": "walk",
+      "arguments": {
+        "distance_m": 1.5
+      },
+      "label": "Walk 1.5 m",
+      "status": "FAILED",
+      "error_code": "motion_timeout"
+    },
+    {
+      "id": 37,
+      "at": 193.778,
+      "kind": "task",
+      "revision": 3,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_2_rr2_walk_to_kitchen",
+          "FAILED"
+        ],
+        [
+          "r3_3_rr3_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "r3_4_rr4_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r3_5_rr5_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "WAITING_FOR_INPUT",
+      "label": "Waiting for a new plan"
+    },
+    {
+      "id": 38,
+      "at": 193.778,
+      "kind": "phase",
+      "revision": 3,
+      "label": "Failure feedback → new plan",
+      "status": "PLANNING"
+    },
+    {
+      "id": 39,
+      "at": 200.536,
+      "kind": "plan",
+      "revision": 4,
+      "label": "Revised plan ready"
+    },
+    {
+      "id": 41,
+      "at": 200.553,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_1_recovery_1_navigate_kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "label": "Go to the kitchen",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 42,
+      "at": 200.556,
+      "kind": "task",
+      "revision": 4,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_1_recovery_1_navigate_kitchen",
+          "BLOCKED"
+        ],
+        [
+          "r4_2_recovery_2_spin_half_a",
+          "PENDING"
+        ],
+        [
+          "r4_3_recovery_3_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r4_4_recovery_4_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 43,
+      "at": 214.84,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_1_recovery_1_navigate_kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "label": "Go to the kitchen",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 44,
+      "at": 215.078,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_2_recovery_2_spin_half_a",
+      "skill": "turn",
+      "arguments": {
+        "degrees": 180
+      },
+      "label": "Turn 180°",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 45,
+      "at": 215.08,
+      "kind": "task",
+      "revision": 4,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_1_recovery_1_navigate_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_2_recovery_2_spin_half_a",
+          "BLOCKED"
+        ],
+        [
+          "r4_3_recovery_3_spin_half_b",
+          "PENDING"
+        ],
+        [
+          "r4_4_recovery_4_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 46,
+      "at": 219.051,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_2_recovery_2_spin_half_a",
+      "skill": "turn",
+      "arguments": {
+        "degrees": 180
+      },
+      "label": "Turn 180°",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 47,
+      "at": 219.2,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_3_recovery_3_spin_half_b",
+      "skill": "turn",
+      "arguments": {
+        "degrees": 180
+      },
+      "label": "Turn 180°",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 48,
+      "at": 219.202,
+      "kind": "task",
+      "revision": 4,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_1_recovery_1_navigate_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_2_recovery_2_spin_half_a",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_3_recovery_3_spin_half_b",
+          "BLOCKED"
+        ],
+        [
+          "r4_4_recovery_4_sit_kitchen",
+          "PENDING"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 49,
+      "at": 223.356,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_3_recovery_3_spin_half_b",
+      "skill": "turn",
+      "arguments": {
+        "degrees": 180
+      },
+      "label": "Turn 180°",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 50,
+      "at": 223.458,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_4_recovery_4_sit_kitchen",
+      "skill": "do_skill",
+      "arguments": {
+        "skill": "sit"
+      },
+      "label": "Sit down",
+      "status": "RUNNING",
+      "error_code": null
+    },
+    {
+      "id": 51,
+      "at": 223.461,
+      "kind": "task",
+      "revision": 4,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_1_recovery_1_navigate_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_2_recovery_2_spin_half_a",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_3_recovery_3_spin_half_b",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_4_recovery_4_sit_kitchen",
+          "BLOCKED"
+        ]
+      ],
+      "status": "RECOVERING",
+      "label": "Following the plan"
+    },
+    {
+      "id": 52,
+      "at": 226.063,
+      "kind": "action",
+      "revision": 4,
+      "node_id": "r4_4_recovery_4_sit_kitchen",
+      "skill": "do_skill",
+      "arguments": {
+        "skill": "sit"
+      },
+      "label": "Sit down",
+      "status": "SUCCEEDED",
+      "error_code": null
+    },
+    {
+      "id": 53,
+      "at": 226.069,
+      "kind": "task",
+      "revision": 4,
+      "nodes": [
+        [
+          "n1_navigate_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "n2_photo_bathroom",
+          "SUCCEEDED"
+        ],
+        [
+          "r3_1_rr1_face_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_1_recovery_1_navigate_kitchen",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_2_recovery_2_spin_half_a",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_3_recovery_3_spin_half_b",
+          "SUCCEEDED"
+        ],
+        [
+          "r4_4_recovery_4_sit_kitchen",
+          "SUCCEEDED"
+        ]
+      ],
+      "status": "SUCCEEDED",
+      "label": "All steps verified"
+    },
+    {
+      "id": 54,
+      "at": 226.07,
+      "kind": "result",
+      "revision": 4,
+      "label": "Task completed",
+      "status": "SUCCEEDED"
+    }
+  ],
+  "actions": [
+    {
+      "node_id": "n1_navigate_bathroom",
+      "revision": 1,
+      "label": "Go to the bathroom",
+      "skill": "navigate",
+      "arguments": {
+        "place": "bathroom"
+      },
+      "status": "SUCCEEDED",
+      "at": 44.268,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "target": {
+          "x": 2.27,
+          "y": -2.005
+        },
+        "error_m": 0.2068572856231754,
+        "pose": {
+          "x": 2.0644139308654563,
+          "y": -2.027897702792957,
+          "yaw_degrees": -18.032109804797116
+        },
+        "verification": "Nav2 SUCCEEDED and fresh odometry within 0.3 m"
+      }
+    },
+    {
+      "node_id": "n2_photo_bathroom",
+      "revision": 1,
+      "label": "Take a photo",
+      "skill": "snapshot",
+      "arguments": {},
+      "status": "SUCCEEDED",
+      "at": 44.548,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "path": "c3e8e706424d429b9668cc84b98c077b.jpg",
+        "width": 640,
+        "height": 360,
+        "observed_at": 1794280598.790048,
+        "verification": "fresh ROS camera frame saved"
+      }
+    },
+    {
+      "node_id": "n3_navigate_kitchen",
+      "revision": 1,
+      "label": "Go to the kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "status": "FAILED",
+      "at": 118.774,
+      "error_code": "navigation_failed",
+      "detail": "Nav2 result status 6",
+      "observation": {}
+    },
+    {
+      "node_id": "r2_1_n3_retry_navigate_kitchen",
+      "revision": 2,
+      "label": "Go to the kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "status": "FAILED",
+      "at": 149.674,
+      "error_code": "navigation_failed",
+      "detail": "Nav2 result status 6",
+      "observation": {}
+    },
+    {
+      "node_id": "r3_1_rr1_face_kitchen",
+      "revision": 3,
+      "label": "Turn 56° right",
+      "skill": "turn",
+      "arguments": {
+        "degrees": -56
+      },
+      "status": "SUCCEEDED",
+      "at": 172.435,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "target": -0.9773843811168246,
+        "progress": 0.9968770824371593,
+        "pose": {
+          "x": -2.6962079962669487,
+          "y": 0.32606589046888046,
+          "yaw_degrees": 85.29160024467224
+        },
+        "verification": "signed odometry progress and stopped"
+      }
+    },
+    {
+      "node_id": "r3_2_rr2_walk_to_kitchen",
+      "revision": 3,
+      "label": "Walk 1.5 m",
+      "skill": "walk",
+      "arguments": {
+        "distance_m": 1.5
+      },
+      "status": "FAILED",
+      "at": 193.773,
+      "error_code": "motion_timeout",
+      "detail": "Target not reached before deadline",
+      "observation": {}
+    },
+    {
+      "node_id": "r4_1_recovery_1_navigate_kitchen",
+      "revision": 4,
+      "label": "Go to the kitchen",
+      "skill": "navigate",
+      "arguments": {
+        "place": "kitchen"
+      },
+      "status": "SUCCEEDED",
+      "at": 214.84,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "target": {
+          "x": -2.63,
+          "y": 1.945
+        },
+        "error_m": 0.2239983434980512,
+        "pose": {
+          "x": -2.808188140376399,
+          "y": 1.8092640632733112,
+          "yaw_degrees": 37.77832112387165
+        },
+        "verification": "Nav2 SUCCEEDED and fresh odometry within 0.3 m"
+      }
+    },
+    {
+      "node_id": "r4_2_recovery_2_spin_half_a",
+      "revision": 4,
+      "label": "Turn 180°",
+      "skill": "turn",
+      "arguments": {
+        "degrees": 180
+      },
+      "status": "SUCCEEDED",
+      "at": 219.051,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "target": 3.141592653589793,
+        "progress": 3.200830273493937,
+        "pose": {
+          "x": -2.8030714559811942,
+          "y": 1.8135234931417745,
+          "yaw_degrees": -132.03087248155697
+        },
+        "verification": "signed odometry progress and stopped"
+      }
+    },
+    {
+      "node_id": "r4_3_recovery_3_spin_half_b",
+      "revision": 4,
+      "label": "Turn 180°",
+      "skill": "turn",
+      "arguments": {
+        "degrees": 180
+      },
+      "status": "SUCCEEDED",
+      "at": 223.356,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "target": 3.141592653589793,
+        "progress": 3.1921534448846614,
+        "pose": {
+          "x": -2.8156587140181295,
+          "y": 1.811864143824038,
+          "yaw_degrees": 50.325934134018325
+        },
+        "verification": "signed odometry progress and stopped"
+      }
+    },
+    {
+      "node_id": "r4_4_recovery_4_sit_kitchen",
+      "revision": 4,
+      "label": "Sit down",
+      "skill": "do_skill",
+      "arguments": {
+        "skill": "sit"
+      },
+      "status": "SUCCEEDED",
+      "at": 226.063,
+      "error_code": null,
+      "detail": "Execution verified by controller observations",
+      "observation": {
+        "policy_state": "sit",
+        "observed_transition": "sit",
+        "verification": "policy transition and completion/settling interval"
+      }
+    }
+  ],
+  "photo": {
+    "file": "microduck-recovery-bathroom.jpg",
+    "width": 640,
+    "height": 360
+  },
+  "replay": {
+    "kind": "events",
+    "gif": "microduck-recovery-plan.gif",
+    "poster": "microduck-recovery-plan-poster.png",
+    "width": 1080,
+    "height": 1053,
+    "frames": 47,
+    "duration_seconds": 31.34,
+    "speed": 0,
+    "source_session": "console-e3a48a62",
+    "result": "SUCCEEDED",
+    "bytes": 270491
+  },
+  "rerun": {
+    "kind": "robot",
+    "gif": "microduck-recovery-rerun.gif",
+    "poster": "microduck-recovery-rerun-poster.png",
+    "width": 840,
+    "height": 785,
+    "frames": 129,
+    "duration_seconds": 21.5,
+    "speed": 12,
+    "source_session": "console-2fc30300",
+    "result": "FAILED",
+    "bytes": 2319310,
+    "repeat_runs": [
+      {
+        "session": "console-79ae4926",
+        "result": "FAILED"
+      },
+      {
+        "session": "console-2fc30300",
+        "result": "FAILED"
+      }
+    ],
+    "presentation": "An independent repeat run, separate from the successful case. Actual browser captures sampled at regular intervals for 12x playback with a final-frame hold. Local filesystem paths redacted from event text before capture."
+  }
+}
