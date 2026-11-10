@@ -1,8 +1,17 @@
 # Architecture image sources
 
-The four-stage architecture diagram is manually drawn as editable SVG, following the supplied simplified architecture reference. No generative image tool is used. The earlier seven-layer HTML composition is retained as a historical source.
+The current five-stage global architecture is supplied by the project owner in `docs/assets/geek-mind-architecture.pdf` (uploaded as `Geek_Mind_Agent_Architecture(1).pdf`, 2026-11-10). This PDF is the canonical artwork. Its content and layout are preserved in the website SVG and PNG exports; no generative image editing is used.
 
-Run `python3 docs/assets/architecture-src/build-architecture.py` to regenerate `docs/assets/geek-mind-architecture.svg`. Text, icons, panels, and connectors are vector elements; the two existing hardware photographs are embedded for a self-contained SVG. `docs/assets/geek-mind-architecture.png` is a raster export of the same SVG, retained for existing image links. The website uses the SVG in both its preview and enlargement dialog.
+Regenerate the display assets from the repository root with Poppler:
+
+```bash
+pdftocairo -svg docs/assets/geek-mind-architecture.pdf docs/assets/geek-mind-architecture.svg
+pdftoppm -f 1 -singlefile -scale-to 3600 -png docs/assets/geek-mind-architecture.pdf docs/assets/geek-mind-architecture
+```
+
+The website and repository README use the self-contained SVG. The enlargement dialog also links to the original PDF. The PNG is a high-resolution raster export retained for existing image links. Text and lines remain vector paths in the SVG, and the two hardware photographs are embedded.
+
+`build-architecture.py` is the legacy four-stage generator and must not be used to regenerate the current diagram. The earlier HTML composition is also retained as a historical source.
 
 - **Unitree Go2 product image** — Unitree Robotics official shop:  
   <https://shop.unitree.com/products/unitree-go2>  

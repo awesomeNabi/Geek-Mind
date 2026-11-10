@@ -10,6 +10,7 @@ const files = [
   ['geek-mind-real-world-poster.jpg', 'geek-mind-real-world-poster.jpg'],
   ['geek-mind-architecture.svg', 'geek-mind-architecture.svg'],
   ['geek-mind-architecture.png', 'geek-mind-architecture.png'],
+  ['geek-mind-architecture.pdf', 'geek-mind-architecture.pdf'],
   ['geek-mind-demo.mp4', 'geek-mind-demo.mp4'],
   ['geek-mind-demo-cover.jpg', 'geek-mind-demo-cover.jpg'],
   ['geek-mind-frontend-demo.gif', 'geek-mind-frontend-demo.gif'],
